@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monte Seu Bolo | Confeitaria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D67B9F',
+                        secondary: '#F8E1E9',
+                        neutral: '#2D2327',
+                        light: '#FFFAFC',
+                        accent: '#E8A0BF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['"Montserrat"', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .selecionado {
+                border-color: #D67B9F !important;
+                background-color: #F8E1E9/30 !important;
+            }
+            .sombra-suave {
+                box-shadow: 0 4px 12px rgba(214, 123, 159, 0.08);
+            }
+            .transicao {
+                transition: all 0.3s ease;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-light font-sans text-neutral min-h-screen flex flex-col">
+
+    <!-- CABEÇALHO -->
+    <header class="py-8 px-4 border-b border-secondary/50">
+        <div class="container mx-auto max-w-5xl text-center">
+            <h1 class="text-[clamp(1.8rem,4vw,2.8rem)] font-display font-semibold text-primary mb-2">
+                Monte o Seu Bolo
+            </h1>
+            <p class="text-neutral/70 text-lg">Escolha cada detalhe e crie algo único</p>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container mx-auto max-w-5xl px-4 py-10 flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+
+            <!-- COLUNA ESQUERDA: OPÇÕES DE PERSONALIZAÇÃO -->
+            <div class="lg:col-span-2 space-y-10">
+
+                <!-- SEÇÃO 1: ANDARES E PESO -->
+                <section class="space-y-6">
+                    <h2 class="text-xl font-display font-medium text-neutral/80 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">1</span>
+                        Tamanho e Estrutura
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <!-- SELETOR DE ANDARES COM IMAGEM -->
+                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ-9QsUerb_LfM5qOHWWzv5j6cmu3o01qOd4_m1psxtx11lQg0JsyhFx4&s=10"Andares" class="w-12 h-12 rounded-lg object-cover">
+                                <label class="block text-sm font-medium text-neutral/60">Quantos andares?</label>
+                            </div>
+                            <select id="andares" onchange="atualizarTudo()" class="w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                                <option value="1" data-preco="65">1 Andar</option>
+                                <option value="2" data-preco="95">2 Andares</option>
+                                <option value="3" data-preco="130">3 Andares</option>
+                            </select>
+                        </div>
+
+                        <!-- SELETOR DE PESO/KG COM IMAGEM -->
+                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="https://i.pinimg.com/564x/1e/d7/fa/1ed7faf0923bdb0563f72e1d5d5ffd80.jpg" alt="Peso" class="w-12 h-12 rounded-lg object-cover">
+                                <label class="block text-sm font-medium text-neutral/60">Peso aproximado</label>
+                            </div>
+                            <select id="peso" onchange="atualizarTudo()" class="w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                                <option value="1kg" data-preco="0">1 kg • até 10 fatias</option>
+                                <option value="2kg" data-preco="15">2 kg • até 20 fatias <span class="text-primary">+ R$15</span></option>
+                                <option value="3kg" data-preco="30">3 kg • até 35 fatias <span class="text-primary">+ R$30</span></option>
+                                <option value="4kg" data-preco="45">4 kg • até 50 fatias <span class="text-primary">+ R$45</span></option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- SEÇÃO 2: COBERTURAS (COM IMAGEM PEQUENA, NOME E VALOR) -->
+                <section class="space-y-6">
+                    <h2 class="text-xl font-display font-medium text-neutral/80 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">2</span>
+                        Escolha a Cobertura
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- COBERTURA 1 -->
+                        <div onclick="escolherCobertura(this)" data-valor="0" data-nome="Chantilly Branco" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1565984728551-3889067537d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Chantilly Branco" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Chantilly Branco</h3>
+                                <p class="text-sm text-neutral/60">Leve e tradicional</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">Grátis</span>
+                        </div>
+
+                        <!-- COBERTURA 2 -->
+                        <div onclick="escolherCobertura(this)" data-valor="10" data-nome="Chantilly Colorido" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1556909114-4f535787b3c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Chantilly Colorido" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Chantilly Colorido</h3>
+                                <p class="text-sm text-neutral/60">Cores à sua escolha</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">+ R$10,00</span>
+                        </div>
+
+                        <!-- COBERTURA 3 -->
+                        <div onclick="escolherCobertura(this)" data-valor="15" data-nome="Ganache de Chocolate" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1606890658388-888f9920ed90?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Ganache de Chocolate" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Ganache de Chocolate</h3>
+                                <p class="text-sm text-neutral/60">Cremoso e intenso</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">+ R$15,00</span>
+                        </div>
+
+                        <!-- COBERTURA 4 -->
+                        <div onclick="escolherCobertura(this)" data-valor="20" data-nome="Pasta Americana" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1582434164968-e2c86e380719?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Pasta Americana" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Pasta Americana</h3>
+                                <p class="text-sm text-neutral/60">Lisa e personalizável</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">+ R$20,00</span>
+                        </div>
+
+                        <!-- COBERTURA 5 -->
+                        <div onclick="escolherCobertura(this)" data-valor="18" data-nome="Ninho com Morango" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1595951253046-1b48365bbbe8?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Ninho com Morango" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Ninho com Morango</h3>
+                                <p class="text-sm text-neutral/60">Doce e frutado</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">+ R$18,00</span>
+                        </div>
+
+                        <!-- COBERTURA 6 -->
+                        <div onclick="escolherCobertura(this)" data-valor="22" data-nome="Mesclado Especial" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://images.unsplash.com/photo-1571451818047-99f34343a379?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Mesclado Especial" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Mesclado Especial</h3>
+                                <p class="text-sm text-neutral/60">Várias texturas</p>
+                            </div>
+                            <span class="text-primary font-semibold text-sm">+ R$22,00</span>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <!-- SEÇÃO 3: RECHEIOS COM IMAGENS -->
+                <section class="space-y-6">
+                    <h2 class="text-xl font-display font-medium text-neutral/80 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">3</span>
+                        Recheios (escolha até 2)
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1588496827369-7d2e5c6c388c?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Leite Ninho" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Leite Ninho" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Leite Ninho</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1592427660854-3907256b120e?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Brigadeiro" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Brigadeiro Tradicional" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Brigadeiro Tradicional</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1565984728438-983821c5a135?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Morango" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Morango Fresco" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Morango Fresco</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1611252714293-8b1416f28081?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Doce de Leite" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Doce de Leite" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Doce de Leite</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1574864328378-08b4256337b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Abacaxi" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Abacaxi com Coco" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Abacaxi com Coco</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1580478331622-9c9a2d460a8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80" alt="Nutella" class="w-12 h-12 rounded-lg object-cover">
+                            <input type="checkbox" value="Nutella" class="w-4 h-4 accent-primary">
+                            <span class="text-neutral/80">Nutella</span>
+                        </label>
+                    </div>
+                </section>
+
+
+                <!-- SEÇÃO 4: MENSAGEM E ENTREGA -->
+                <section class="space-y-6">
+                    <h2 class="text-xl font-display font-medium text-neutral/80 flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">4</span>
+                        Detalhes Finais
+                    </h2>
+
+                    <div class="grid grid-cols-1 gap-5">
+                        <div>
+                            <label class="block text-sm font-medium text-neutral/60 mb-2">Alguma observação a mais no 🎂</label>
+                            <textarea id="mensagem" class="w-full p-4 border border-secondary rounded-xl sombra-suave focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao h-20" 
+                            placeholder="Ex.: Quero o topo do bolo..."></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-neutral/60 mb-2">Data da entrega</label>
+                                <input type="date" id="data" class="w-full p-3 border border-secondary rounded-lg sombra-suave focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-neutral/60 mb-2">Horário</label>
+                                <input type="time" id="hora" class="w-full p-3 border border-secondary rounded-lg sombra-suave focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+
+            <!-- COLUNA DIREITA: RESUMO -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-5">
+                    <div class="bg-white border border-secondary/60 rounded-2xl p-6 sombra-suave">
+                        <h2 class="text-lg font-display font-medium text-primary mb-5 pb-3 border-b border-secondary/50">Seu Pedido</h2>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-neutral/60">Andares:</span>
+                                <span id="resumoAndares" class="font-medium">1 Andar</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral/60">Peso:</span>
+                                <span id="resumoPeso" class="font-medium">1 kg</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral/60">Cobertura:</span>
+                                <span id="resumoCobertura" class="font-medium text-right">Chantilly Branco</span>
+                            </div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-neutral/60">Recheios:</span>
+                                <span id="resumoRecheios" class="font-medium text-right">Nenhum</span>
+                            </div>
+                            <div class="flex justify-between items-start">
+                                <span class="text-neutral/60">Observação:</span>
+                                <span id="resumoMensagem" class="font-medium text-right italic">---</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-neutral/60">Entrega:</span>
+                                <span id="resumoEntrega" class="font-medium">---</span>
+                            </div>
+
+                            <div class="border-t border-secondary/50 pt-4 mt-4">
+                                <div class="flex justify-between items-center text-lg font-semibold">
+                                    <span class="text-neutral/80">Valor Total:</span>
+                                    <span id="valorTotal" class="text-primary">R$ 65,00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="finalizar()" class="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transicao">
+                            Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="py-6 px-4 border-t border-secondary/50 mt-10">
+        <div class="container mx-auto max-w-5xl text-center text-sm text-neutral/50">
+            <p>Confeitaria • Feito com carinho para sua comemoração 🎂</p>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        let precoCobertura = 0;
+        let nomeCobertura = "Chantilly Branco";
+
+        // DEFINIR DATA MÍNIMA COMO HOJE
+        const hoje = new Date().toISOString().split('T')[0];
+        document.getElementById('data').min = hoje;
+
+        // SELECIONAR COBERTURA
+        function escolherCobertura(elemento) {
+            // REMOVE SELEÇÃO DE TODOS
+            document.querySelectorAll('.cobertura-item').forEach(el => el.classList.remove('selecionado'));
+            // ADICIONA NA ESCOLHIDA
+            elemento.classList.add('selecionado');
+
+            // PEGA DADOS
+            precoCobertura = parseFloat(elemento.dataset.valor);
+            nomeCobertura = elemento.dataset.nome;
+
+            atualizarTudo();
+        }
+
+        // PEGAR VALOR DO SELECT
+        function pegarValorSelect(id) {
+            const select = document.getElementById(id);
+            const opcao = select.options[select.selectedIndex];
+            return {
+                texto: opcao.text.split(' •')[0],
+                preco: parseFloat(opcao.dataset.preco)
+            };
+        }
+
+        // PEGAR RECHEIOS
+        function pegarRecheios() {
+            const selecionados = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(el => {
+                selecionados.push(el.value);
+            });
+            return selecionados.length > 0 ? selecionados.join(', ') : 'Nenhum';
+        }
+
+        // ATUALIZAR TUDO
+        function atualizarTudo() {
+            const andares = pegarValorSelect('andares');
+            const peso = pegarValorSelect('peso');
+
+            // CALCULAR TOTAL
+            const total = andares.preco + peso.preco + precoCobertura;
+
+            // ATUALIZAR RESUMO
+            document.getElementById('resumoAndares').textContent = andares.texto;
+            document.getElementById('resumoPeso').textContent = peso.texto;
+            document.getElementById('resumoCobertura').textContent = nomeCobertura;
+            document.getElementById('resumoRecheios').textContent = pegarRecheios();
+            document.getElementById('resumoMensagem').textContent = document.getElementById('mensagem').value || '---';
+            
+            const data = document.getElementById('data').value;
+            const hora = document.getElementById('hora').value;
+            document.getElementById('resumoEntrega').textContent = data && hora ? `${data} às ${hora}` : '---';
+
+            // VALOR
+            document.getElementById('valorTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        // FINALIZAR E ENVIAR NO WHATSAPP
+        function finalizar() {
+            const data = document.getElementById('data').value;
+            const hora = document.getElementById('hora').value;
+
+            if(!data || !hora) {
+                alert('⚠️ Preencha a data e horário da entrega!');
+                return;
+            }
+
+            // MONTAR MENSAGEM COMPLETA
+            const mensagem = `📋 *NOVO PEDIDO DE BOLO* 🎂%0A%0A` +
+                `• *Andares:* ${pegarValorSelect('andares').texto}%0A` +
+                `• *Peso:* ${pegarValorSelect('peso').texto}%0A` +
+                `• *Cobertura:* ${nomeCobertura}%0A` +
+                `• *Recheios:* ${pegarRecheios()}%0A` +
+                `• *Observação:* ${document.getElementById('mensagem').value || 'Nenhuma'}%0A` +
+                `• *Entrega:* ${data} às ${hora}%0A%0A` +
+                `💰 *VALOR TOTAL:* ${document.getElementById('valorTotal').textContent}`;
+
+            // ENVIAR DIRETO NO WHATSAPP
+            window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
+        }
+
+        // ATUALIZAR QUANDO MUDAR ALGO
+        document.getElementById('mensagem').addEventListener('input', atualizarTudo);
+        document.querySelectorAll('input[type="checkbox"]').forEach(el => el.addEventListener('change', atualizarTudo));
+        document.getElementById('data').addEventListener('input', atualizarTudo);
+        document.getElementById('hora').addEventListener('input', atualizarTudo);
+
+        // SELECIONAR PRIMEIRA COBERTURA POR PADRÃO
+        document.querySelector('.cobertura-item').classList.add('selecionado');
+    </script>
+
+</body>
+</html>
