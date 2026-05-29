@@ -600,13 +600,15 @@
         </div>
 
         <div class="store-title">Delicias da Ely</div>
-        <div class="store-meta"><hr class="linha-rosa"><br>📍 1,6km de você • Entrega grátis
+        <div class="store-meta"><hr class="linha-rosa"><br>📍 1,6km de você • Anápolis
             <p style="padding: 6px;"><br>⭐ 5.0 (1,392 avaliações)</p>
         </div>
     </div>
 
     <div class="info-cards">
+         <a href="Montar-Bolo.html" target="_blank">
         <button class="btn-criar-bolo">🎂 Criar meu Bolo 🎂</button>
+             </a
         <div class="info-card">Aproveite nossa promoção com preços imperdíveis de Hoje!</div>
     </div>
 
@@ -1157,7 +1159,7 @@ function addToCartByElement(id, event) {
                 }
             }
 
-            let mensagem = `*Novo Contato/Pedido - Delícias da Ely*%0A%0A`;
+            let mensagem = `🛎️🔔🛎️ - Delícias da Ely*%0A%0A`;
             mensagem += `*Cliente:* ${nome}%0A`;
             mensagem += `*Localização:* ${userLocation}%0A`;
             mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
@@ -1171,8 +1173,7 @@ function addToCartByElement(id, event) {
             }
             
             if(!botaoAtivoPlanilha) {
-                mensagem += `*Aviso sobre entrega:*%0A`;
-                mensagem += `No momento, não fazemos entregas próprias 😔%0A`;
+                mensagem += `*Sobre a entrega:*%0A`;
                 mensagem += `Opção selecionada pelo cliente: *${metodo}*`;
             }
 
@@ -1187,3 +1188,4 @@ function addToCartByElement(id, event) {
     </script>
 </body>
 </html>
+
