@@ -181,7 +181,7 @@
                         
                         <div class="space-y-2">
                             <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer bg-white">
-                                <img src="https://i.ibb.co/PvywwSrG/88458.jpg" alt="Brigadeiro Tradicional" class="w-12 h-12 rounded-lg object-cover">
+                                <img src="https://i.ibb.co/PvywwSrG/88458.jpg" alt="50% Cacau" class="w-12 h-12 rounded-lg object-cover">
                                 <input type="checkbox" id="check-brigadeiro" value="50% Cacau" class="w-4 h-4 accent-primary">
                                 <span class="text-neutral/80 font-medium">50% Cacau</span>
                             </label>
@@ -204,7 +204,7 @@
                             <span class="text-neutral/80">Cupuaçu</span>
                         </label>
                         <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer bg-white">
-                            <img src="https://i.ibb.co/R4tNZwqk/88425.jpg" alt="Doce de Leite" class="w-12 h-12 rounded-lg object-cover">
+                            <img src="https://i.ibb.co/R4tNZwqk/88425.jpg" alt="75% Cacau" class="w-12 h-12 rounded-lg object-cover">
                             <input type="checkbox" value="75% Cacau" class="w-4 h-4 accent-primary">
                             <span class="text-neutral/80">75% Cacau</span>
                         </label>
@@ -706,21 +706,24 @@
                 
                 if (andarSelecionado === "1") {
                     selectPeso.innerHTML = `
-                        <option value="1kg" data-preco-60="60" data-preco-75="75">1 kg • até 10 fatias</option>
-                        <option value="2kg" data-preco-60="120" data-preco-75="150">2 kg • até 20 fatias</option>
-                        <option value="3kg" data-preco-60="180" data-preco-75="225">3 kg • até 35 fatias</option>
-                        <option value="4kg" data-preco-60="240" data-preco-75="300">4 kg • até 50 fatias</option>
+                        <option value="1kg" data-preco-60="60" data-preco-75="75">1 kg • 13com</option>
+                        <option value="2kg" data-preco-60="120" data-preco-75="150">2 kg • 15cm</option>
+                        <option value="2,5kg" data-preco-60="120" data-preco-75="150">2 kg • 17cm</option>
+                        <option value="3kg" data-preco-60="180" data-preco-75="225">3 kg • 20cm</option>
+                        <option value="4kg" data-preco-60="240" data-preco-75="300">4 kg • 22cm</option>
+                        <option value="5kg" data-preco-60="300" data-preco-75="375">5 kg • 25cm</option>
+                        <option value="7kg" data-preco-60="420" data-preco-75="525">7 kg • 35cm</option>
+                        
+                        
                     `;
                 } else if (andarSelecionado === "2") {
                     selectPeso.innerHTML = `
-                        <option value="piso1kg_topo600g" data-preco-60="96" data-preco-75="120">Base: 1kg - topo: 600g</option>
-                        <option value="piso2kg_topo1.5kg" data-preco-60="210" data-preco-75="262.5">Base: 2kg - topo: 1,5kg</option>
-                        <option value="piso3kg_topo2.5kg" data-preco-60="330" data-preco-75="412.5">Base: 3kg - topo: 2,5kg</option>
+                        <option value="piso2kg_topo1.5kg" data-preco-60="210" data-preco-75="262.5">Base 17 cm (2,5 kg) + Topo 13 cm (1 kg)</option>
+                        <option value="piso3kg_topo2.5kg" data-preco-60="330" data-preco-75="412.5">Base 22 cm (4 kg) + Topo 15 cm (2 kg)</option>
                     `;
                 } else if (andarSelecionado === "3") {
                     selectPeso.innerHTML = `
-                        <option value="piso2kg_meio1kg_topo600g" data-preco-60="216" data-preco-75="270">Base: 2kg - Meio: 1kg - Topo: 600g</option>
-                        <option value="piso3kg_meio2kg_topo1.5kg" data-preco-60="390" data-preco-75="487.5">Base: 3kg - Meio: 2kg - Topo: 1,5kg</option>
+                        <option value="piso2kg_meio1kg_topo600g" data-preco-60="216" data-preco-75="270">Base 22 cm (4 kg) + Meio 17 cm (2,5 kg) + Topo 13 cm (1 kg)</option>
                     `;
                 }
             }
