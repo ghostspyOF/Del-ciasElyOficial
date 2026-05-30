@@ -61,7 +61,7 @@
             <h1 class="text-[clamp(1.8rem,4vw,2.8rem)] font-display font-semibold text-primary mb-2">
                 Monte o Seu Bolo
             </h1>
-            <p class="text-neutral/70 text-lg">Escolha cada detalhe e crie algo único</p>
+            <p class="text-neutral/70 text-lg">Escolha cada detalhe e crie algo unique</p>
         </div>
     </header>
 
@@ -77,24 +77,36 @@
                     </h2>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40">
+                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 bg-white">
                             <div class="flex items-center gap-3 mb-2">
                                <img id="img-andares" src="https://i.pinimg.com/736x/30/4b/32/304b32cbaf12cbaa99e5c9b7dfe6f63d.jpg" alt="Andares" class="w-12 h-12 rounded-lg object-cover">
                                <label class="block text-sm font-medium text-neutral/60">Quantos andares?</label>
                             </div>
-                            <select id="andares" onchange="atualizarTudo()" class="w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                            
+                            <button type="button" onclick="abrirModalAndares()" id="btn-trigger-andares" class="w-full p-3 border border-secondary rounded-lg bg-white text-left text-neutral/80 font-medium flex justify-between items-center focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                                <span id="text-trigger-andares">1 Andar</span>
+                                <i class="fa fa-chevron-down text-primary text-xs"></i>
+                            </button>
+
+                            <select id="andares" onchange="atualizarTudo()" class="hidden w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
                                 <option value="1" data-preco="0">1 Andar</option>
                                 <option value="2" data-preco="0">2 Andares</option>
                                 <option value="3" data-preco="0">3 Andares</option>
                             </select>
                         </div>
 
-                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40">
+                        <div class="p-5 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 bg-white">
                             <div class="flex items-center gap-3 mb-2">
                                 <img src="https://i.pinimg.com/564x/1e/d7/fa/1ed7faf0923bdb0563f72e1d5d5ffd80.jpg" alt="Peso" class="w-12 h-12 rounded-lg object-cover">
                                 <label class="block text-sm font-medium text-neutral/60">Peso aproximado</label>
                             </div>
-                            <select id="peso" onchange="atualizarTudo(); rolarPara('passo2')" class="w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+
+                            <button type="button" onclick="abrirModalPesos()" id="btn-trigger-pesos" class="w-full p-3 border border-secondary rounded-lg bg-white text-left text-neutral/80 font-medium flex justify-between items-center focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
+                                <span id="text-trigger-pesos">Selecione o peso</span>
+                                <i class="fa fa-chevron-down text-primary text-xs"></i>
+                            </button>
+
+                            <select id="peso" onchange="atualizarTudo();" class="hidden w-full p-3 border border-secondary rounded-lg bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao">
                             </select>
                         </div>
                     </div>
@@ -108,7 +120,7 @@
                     <p style="font-size: 15px; text-align: center;">Incluso no valor por kg</p>      
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div onclick="escolherCobertura(this); rolarPara('passo3')" data-valor="0" data-nome="Chantilly Branco" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                        <div onclick="escolherCobertura(this);" data-valor="0" data-nome="Chantilly Branco" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
                             <img src="https://i.ibb.co/Y7hpRHKD/88525.webp" alt="Chantilly Branco" class="w-16 h-16 rounded-lg object-cover">
                             <div class="flex-1">
                                 <h3 class="font-medium text-neutral">Chantilly Branco</h3>
@@ -135,19 +147,43 @@
                                     <button onclick="alternarCorPaleta('Coral Doce', '#FCA5A5', this)" class="btn-paleta-cor px-3 py-1.5 rounded-full border border-secondary text-xs font-medium transicao bg-[#FCA5A5]/20 hover:bg-[#FCA5A5]/40 text-neutral">Coral Doce</button>
                                     <button onclick="alternarCorPaleta('Branco Off', '#F3F4F6', this)" class="btn-paleta-cor px-3 py-1.5 rounded-full border border-secondary text-xs font-medium transicao bg-[#F3F4F6]/20 hover:bg-[#F3F4F6]/40 text-neutral">Branco Off</button>
                                 </div>
-                                <button onclick="rolarPara('passo3')" class="mt-1 w-full bg-secondary/50 text-neutral text-xs font-medium py-1.5 rounded transition hover:bg-secondary">
+                                <button onclick="atualizarTudo()" class="mt-1 w-full bg-secondary/50 text-neutral text-xs font-medium py-1.5 rounded transition hover:bg-secondary">
                                     Confirmar Cores ➔
                                 </button>
                             </div>
                         </div>
 
-                        <div onclick="escolherCobertura(this); rolarPara('passo3')" data-valor="0" data-nome="Chocolate" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                        <div onclick="escolherCobertura(this);" data-valor="0" data-nome="Ganache de Chocolate" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
                             <img src="https://static.itdg.com.br/images/1200-675/834a68677724f5fe8c66ec15598acbfa/wanessa-2024-12-11t223212.575.png" alt="Ganache de Chocolate" class="w-16 h-16 rounded-lg object-cover">
                             <div class="flex-1">
-                                <h3 class="font-medium text-neutral">Chocolate</h3>
-                                <p class="text-sm text-neutral/60">O preferido da galera</p>
+                                <h3 class="font-medium text-neutral">Ganache de Chocolate</h3>
+                                <p class="text-sm text-neutral/60">Cremoso e intenso</p>
                             </div>
-                        </div>                     
+                        </div>
+
+                        <div onclick="escolherCobertura(this);" data-valor="0" data-nome="Pasta Americana" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://i.ibb.co/4n2PHMP7/88529.jpg" alt="Pasta Americana" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Pasta Americana</h3>
+                                <p class="text-sm text-neutral/60">Lisa e personalizável</p>
+                            </div>
+                        </div>
+
+                        <div onclick="escolherCobertura(this);" data-valor="0" data-nome="Ninho com Morango" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSTIywMFekBkrg9QfJjIOnLarDTNgKP9RH0eJJgWO_gqpdNyb5dqDFMsA&s=10" alt="Ninho com Morango" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Ninho com Morango</h3>
+                                <p class="text-sm text-neutral/60">Doce e frutado</p>
+                            </div>
+                        </div>
+
+                        <div onclick="escolherCobertura(this);" data-valor="0" data-nome="Mesclado Especial" class="cobertura-item flex items-center gap-4 p-4 border border-secondary rounded-xl sombra-suave cursor-pointer transicao hover:border-primary/50">
+                            <img src="https://receitasdatia.com.br/wp-content/uploads/2019/08/Bolo-Mesclado-Napolitano-Inteiro.jpg.webp" alt="Mesclado Especial" class="w-16 h-16 rounded-lg object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-medium text-neutral">Mesclado Especial</h3>
+                                <p class="text-sm text-neutral/60">Várias texturas</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -156,7 +192,7 @@
                         <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm">3</span>
                         Recheios
                     </h2>
-                    <p style="text-align: center; font-size: 14px;">Na escolha do Recheio Especial, o Kg do bolo que custa R$60,00 Reais passa a ser R$ 75,00 Reais</p>
+                    <p style="text-align: center; font-size: 14px;">Na escolha do Recheio Especial, o Kg do bolo que custa R$60,00 Reais passes a ser R$ 75,00 Reais</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         
                         <div class="space-y-2">
@@ -167,8 +203,12 @@
                             </label>
                             
                             <div id="container-ninho-especial" class="hidden pl-4 pr-2 py-2 border-l-2 border-primary/40 space-y-1.5 transicao bg-transparent">
-                                <label for="recheio-especial" class="block text-xs font-semibold text-primary uppercase tracking-wider">✨ Recheio Especial para Ninho:</label>
-                                <select id="recheio-especial" onchange="atualizarTudo()" class="w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm cursor-pointer">
+                                <label class="block text-xs font-semibold text-primary uppercase tracking-wider">✨ Recheio Especial para Ninho:</label>
+                                <button type="button" onclick="abrirModalEspecialNinho()" id="btn-trigger-especial-ninho" class="w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 text-left flex justify-between items-center focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm">
+                                    <span id="text-trigger-especial-ninho">Nenhum especial (Apenas Ninho)</span>
+                                    <i class="fa fa-chevron-down text-primary text-xs"></i>
+                                </button>
+                                <select id="recheio-especial" onchange="atualizarTudo()" class="hidden w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm cursor-pointer">
                                     <option value="">Nenhum especial (Apenas Ninho)</option>
                                     <option value="Ninho com Nutella">Ninho com Nutella</option>
                                     <option value="Ninho com morango">Ninho com morango</option>
@@ -181,14 +221,18 @@
                         
                         <div class="space-y-2">
                             <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer bg-white">
-                                <img src="https://i.ibb.co/PvywwSrG/88458.jpg" alt="50% Cacau" class="w-12 h-12 rounded-lg object-cover">
+                                <img src="https://i.ibb.co/PvywwSrG/88458.jpg" alt="Brigadeiro Tradicional" class="w-12 h-12 rounded-lg object-cover">
                                 <input type="checkbox" id="check-brigadeiro" value="50% Cacau" class="w-4 h-4 accent-primary">
                                 <span class="text-neutral/80 font-medium">50% Cacau</span>
                             </label>
                             
                             <div id="container-brigadeiro-especial" class="hidden pl-4 pr-2 py-2 border-l-2 border-primary/40 space-y-1.5 transicao bg-transparent">
-                                <label for="recheio-brigadeiro-especial" class="block text-xs font-semibold text-primary uppercase tracking-wider">✨ Recheio Especial para 50% Chocolate:</label>
-                                <select id="recheio-brigadeiro-especial" onchange="atualizarTudo()" class="w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm cursor-pointer">
+                                <label class="block text-xs font-semibold text-primary uppercase tracking-wider">✨ Recheio Especial para 50% Chocolate:</label>
+                                <button type="button" onclick="abrirModalEspecialBrigadeiro()" id="btn-trigger-especial-brigadeiro" class="w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 text-left flex justify-between items-center focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm">
+                                    <span id="text-trigger-especial-brigadeiro">Nenhum especial (Apenas 50% Chocolate)</span>
+                                    <i class="fa fa-chevron-down text-primary text-xs"></i>
+                                </button>
+                                <select id="recheio-brigadeiro-especial" onchange="atualizarTudo()" class="hidden w-full p-2.5 border border-secondary rounded-lg bg-white text-sm text-neutral/80 focus:border-primary focus:ring-1 focus:ring-primary outline-none transicao shadow-sm cursor-pointer">
                                     <option value="">Nenhum especial (Apenas 50% Chocolate)</option>
                                     <option value="50% Chocolate com Granulado Colorido Redondo">50% Chocolate com Bolinhas de Granulado</option>
                                     <option value="50% Chocolate com Morango">50% Chocolate com Morango</option>
@@ -204,7 +248,7 @@
                             <span class="text-neutral/80">Cupuaçu</span>
                         </label>
                         <label class="flex items-center gap-3 p-4 border border-secondary rounded-xl sombra-suave transicao hover:border-primary/40 cursor-pointer bg-white">
-                            <img src="https://i.ibb.co/R4tNZwqk/88425.jpg" alt="75% Cacau" class="w-12 h-12 rounded-lg object-cover">
+                            <img src="https://i.ibb.co/R4tNZwqk/88425.jpg" alt="Doce de Leite" class="w-12 h-12 rounded-lg object-cover">
                             <input type="checkbox" value="75% Cacau" class="w-4 h-4 accent-primary">
                             <span class="text-neutral/80">75% Cacau</span>
                         </label>
@@ -375,6 +419,21 @@
         </div>
     </div>
 
+        <div id="alerta-customizado" class="hidden fixed inset-0 bg-neutral/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center sombra-suave border-2 border-secondary scale-95 transition-all duration-300">
+            <div id="alerta-customizado-icone" class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                ⚠️
+            </div>
+            <h3 id="alerta-customizado-titulo" class="text-lg font-display font-semibold text-neutral mb-2">Aviso</h3>
+            <p id="alerta-customizado-texto" class="text-neutral/70 text-sm leading-relaxed mb-6"></p>
+            <button onclick="fecharAlertaCustomizado()" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-xl transicao shadow-md shadow-primary/20">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    </div>
+
     <footer class="py-6 px-4 border-t border-secondary/50 mt-10">
         <div class="container mx-auto max-w-5xl text-center text-sm text-neutral/50">
             <p>Confeitaria • Feito com carinho para sua comemoração 🎂</p>
@@ -388,7 +447,7 @@
             </div>
             <h3 class="text-xl font-display font-semibold text-neutral mb-2">Limite Atingido!</h3>
             <p id="texto-alerta-recheio" class="text-neutral/70 text-sm leading-relaxed mb-6">
-                Seu bolo já está bem recheado! Você pode escolher até <strong class="text-primary">2 opções</strong>. Se quiser mudar, desmarque um recheio primeiro.
+                Seu bolo já está bem recheado! Você pode escolher até <strong class="text-primary">2 options</strong>. Se quiser mudar, desmarque um recheio primeiro.
             </p>
             <button onclick="fecharAlerta()" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-xl transicao shadow-md shadow-primary/20">
                 Entendido
@@ -418,7 +477,8 @@
             
             <div class="bg-amber-50 border border-amber-200 text-amber-800 rounded-xl p-3.5 mb-4 text-xs font-medium leading-relaxed flex items-start gap-2.5">
                 <span class="text-base text-amber-500 mt-0.5"><i class="fa fa-exclamation-triangle"></i></span>
-                <p>Dependendo do seu orçamento de bolo, nossa equipe levará no mínimo 5 horas para entregar.</p>
+                <p>· Por favor, selecione a data e o horário desejados para a retirada do seu bolo.<br>
+                   · Atenção: Devido ao fluxo dos nossos pedidos, o horário escolhido fica sujeito à confirmação de acordo com a nossa agenda.</p>
             </div>
 
             <h3 class="text-lg font-display font-semibold text-neutral mb-4 text-center">Agendar Retirada / Entrega</h3>
@@ -445,6 +505,64 @@
         </div>
     </div>
 
+    <div id="modal-andares" class="hidden fixed inset-0 bg-neutral/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full sombra-suave border-2 border-secondary scale-95 transition-all duration-300">
+            <h3 class="text-xl font-display font-semibold text-neutral text-center mb-4">Escolha a quantidade de Andares</h3>
+            <div class="space-y-2.5 max-h-[60vh] overflow-y-auto pr-1">
+                <button onclick="selecionarOpcaoAndar('1')" class="w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30">
+                    <span>1 Andar</span>
+                    <i class="fa fa-birthday-cake text-primary/40"></i>
+                </button>
+                <button onclick="selecionarOpcaoAndar('2')" class="w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30">
+                    <span>2 Andares</span>
+                    <i class="fa fa-birthday-cake text-primary/70"></i>
+                </button>
+                <button onclick="selecionarOpcaoAndar('3')" class="w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30">
+                    <span>3 Andares</span>
+                    <i class="fa fa-birthday-cake text-primary"></i>
+                </button>
+            </div>
+            <button onclick="fecharModalAndares()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-neutral font-medium py-3 rounded-xl transicao">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-pesos" class="hidden fixed inset-0 bg-neutral/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full sombra-suave border-2 border-secondary scale-95 transition-all duration-300">
+            <h3 class="text-xl font-display font-semibold text-neutral text-center mb-4">Escolha o Peso Aproximado</h3>
+            <div id="lista-pesos-modal" class="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1">
+                </div>
+            <button onclick="fecharModalPesos()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-neutral font-medium py-3 rounded-xl transicao">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-especial-ninho" class="hidden fixed inset-0 bg-neutral/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full sombra-suave border-2 border-secondary scale-95 transition-all duration-300">
+            <h3 class="text-xl font-display font-semibold text-neutral text-center mb-2">✨ Recheio Especial para Ninho</h3>
+            <p class="text-xs text-neutral/50 text-center mb-4">Adiciona sofisticação e altera o valor do kg para R$75,00</p>
+            <div id="lista-especial-ninho-modal" class="space-y-2.5 max-h-[50vh] overflow-y-auto pr-1">
+                </div>
+            <button onclick="fecharModalEspecialNinho()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-neutral font-medium py-3 rounded-xl transicao">
+                Voltar
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-especial-brigadeiro" class="hidden fixed inset-0 bg-neutral/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full sombra-suave border-2 border-secondary scale-95 transition-all duration-300">
+            <h3 class="text-xl font-display font-semibold text-neutral text-center mb-2">✨ Recheio Especial para Chocolate</h3>
+            <p class="text-xs text-neutral/50 text-center mb-4">Adiciona sofisticação e altera o valor do kg para R$75,00</p>
+            <div id="lista-especial-brigadeiro-modal" class="space-y-2.5 max-h-[50vh] overflow-y-auto pr-1">
+                </div>
+            <button onclick="fecharModalEspecialBrigadeiro()" class="w-full mt-4 bg-gray-100 hover:bg-gray-200 text-neutral font-medium py-3 rounded-xl transicao">
+                Voltar
+            </button>
+        </div>
+    </div>
+
     <script>
         let precoCobertura = 0;
         let nomeCobertura = "Chantilly Branco";
@@ -460,17 +578,33 @@
         const hojeStr = hojeObj.toISOString().split('T')[0];
         document.getElementById('data').min = hojeStr;
 
-        function rolarPara(idAlvo) {
-            atualizarProgressoVisual(idAlvo);
-            setTimeout(() => {
-                const elemento = document.getElementById(idAlvo);
-                if (elemento) {
-                    elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 200);
+        // Função auxiliar para exibir o alerta customizado profissional
+        function dispararAlerta(titulo, texto, tipo = 'aviso') {
+            document.getElementById('alerta-customizado-titulo').textContent = titulo;
+            document.getElementById('alerta-customizado-texto').innerHTML = texto;
+            const iconeEl = document.getElementById('alerta-customizado-icone');
+            
+            if (tipo === 'erro') {
+                iconeEl.textContent = '❌';
+                iconeEl.className = "w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-red-200";
+            } else {
+                iconeEl.textContent = '⚠️';
+                iconeEl.className = "w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-amber-200";
+            }
+            
+            document.getElementById('alerta-customizado').classList.remove('hidden');
         }
 
-        // Ideia 3: Atualizador Dinâmico do Progresso
+        function fecharAlertaCustomizado() {
+            document.getElementById('alerta-customizado').classList.add('hidden');
+        }
+
+        // Modificado para apenas atualizar o progresso visual da barra superior, sem rolar a tela
+        function rolarPara(idAlvo) {
+            atualizarProgressoVisual(idAlvo);
+        }
+
+        // Dinâmico do Progresso
         function atualizarProgressoVisual(idAlvo) {
             const passoNum = parseInt(idAlvo.replace('passo', '')) || 1;
             const barra = document.getElementById('barra-progresso');
@@ -480,7 +614,7 @@
             numTxt.textContent = `Etapa ${passoNum} de 5`;
         }
 
-        // Ideia 2: Lógica de seleção das bolinhas de cores fixas
+        // Lógica de seleção das bolinhas de cores fixas
         function alternarCorPaleta(nomeCor, hash, elemento) {
             const index = coresSelecionadasPaleta.indexOf(nomeCor);
             
@@ -491,7 +625,7 @@
                 elemento.style.fontWeight = '500';
             } else {
                 if (coresSelecionadasPaleta.length >= 4) {
-                    alert("⚠️ Você pode escolher no máximo 4 cores para o chantilly!");
+                    dispararAlerta("Limite de Cores", "Você pode escolher no máximo <strong>4 cores</strong> para o chantilly colorido!");
                     return;
                 }
                 coresSelecionadasPaleta.push(nomeCor);
@@ -592,7 +726,6 @@
                     nomeTopo = nome;
                     fecharModalTopo();
                     atualizarTudo();
-                    rolarPara('passo5');
                 };
             }
             
@@ -603,7 +736,7 @@
             document.getElementById('modal-topo').classList.add('hidden');
         }
 
-        // Ideia 5: Funções de Controle do Modal de Data
+        // Funções de Controle do Modal de Data
         function abrirModalData() {
             document.getElementById('modal-data').classList.remove('hidden');
         }
@@ -617,7 +750,7 @@
             const horaInput = document.getElementById('hora').value;
 
             if(!dataInput || !horaInput) {
-                alert("⚠️ Por favor, escolha a data e o horário antes de confirmar.");
+                dispararAlerta("Campos Incompletos", "Por favor, escolha a data e o horário antes de confirmar.", "erro");
                 return;
             }
 
@@ -628,7 +761,7 @@
             const diferencaHoras = diferencaMilissegundos / (1000 * 60 * 60);
 
             if (diferencaHoras < 4) {
-                alert("⚠️ Atenção: Como informado, nosso tempo mínimo de preparação é de 8 horas a partir de agora. Por favor, ajuste o seu horário de retirada.");
+                dispararAlerta("Prazo Insuficiente", "Conforme comunicado, informamos que o prazo mínimo para a preparação dos pedidos é de <strong>4 horas</strong> de antecedência. Solicitamos a gentileza de readequar o seu horário de retirada.", "aviso");
                 return;
             }
 
@@ -641,7 +774,7 @@
             atualizarTudo();
         }
 
-        // Ideia 4: Controle de Menus Auxiliares do Responsivo Móvel
+        // Controle de Menus Auxiliares do Responsivo Móvel
         function abrirGavetaResumo() {
             const containerResumo = document.getElementById('conteudo-resumo-gaveta');
             containerResumo.innerHTML = `
@@ -673,6 +806,7 @@
             } else if (containerNinho) {
                 containerNinho.classList.add('hidden');
                 if(selectNinho) selectNinho.value = "";
+                document.getElementById('text-trigger-especial-ninho').textContent = "Nenhum especial (Apenas Ninho)";
             }
 
             const checkBrigadeiro = document.getElementById('check-brigadeiro');
@@ -684,8 +818,108 @@
             } else if (containerBrigadeiro) {
                 containerBrigadeiro.classList.add('hidden');
                 if(selectBrigadeiro) selectBrigadeiro.value = "";
+                document.getElementById('text-trigger-especial-brigadeiro').textContent = "Nenhum especial (Apenas 50% Chocolate)";
             }
         }
+
+        /* FUNCTIONS AUXILIARES PARA OS NOVOS MODAIS */
+        function abrirModalAndares() { document.getElementById('modal-andares').classList.remove('hidden'); }
+        function fecharModalAndares() { document.getElementById('modal-andares').classList.add('hidden'); }
+        
+        function selecionarOpcaoAndar(valor) {
+            const select = document.getElementById('andares');
+            select.value = valor;
+            document.getElementById('text-trigger-andares').textContent = select.options[select.selectedIndex].text;
+            fecharModalAndares();
+            atualizarTudo();
+            // Reseta gatilho do peso para forçar nova escolha condizente com o andar
+            document.getElementById('text-trigger-pesos').textContent = "Selecione o peso";
+        }
+
+        function abrirModalPesos() {
+    const selectPeso = document.getElementById('peso');
+    const containerLista = document.getElementById('lista-pesos-modal');
+    containerLista.innerHTML = '';
+    
+    // Renderiza dinamicamente as opções com base no estado síncrono do select
+    Array.from(selectPeso.options).forEach((opcao) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        // Mudamos flex-row para items-center para alinhar o texto empilhado verticalmente com o ícone lateral
+        btn.className = "w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30";
+        if(selectPeso.value === opcao.value) {
+            btn.classList.add('border-primary', 'bg-secondary/20');
+        }
+        
+        // Usamos opcao.innerHTML em vez de opcao.text para renderizar o <br> e o '+' estilizado
+        // Aumentamos o ícone mudando text-primary/50 para text-primary/75 e text-2xl
+        btn.innerHTML = `<div class="leading-relaxed">${opcao.innerHTML}</div><i class="fa fa-balance-scale text-primary/75 text-2xl ml-2"></i>`;
+        
+        btn.onclick = function() {
+            selectPeso.value = opcao.value;
+            // Limpa as tags HTML para salvar apenas o texto puro no botão principal da tela
+            document.getElementById('text-trigger-pesos').textContent = opcao.text.split(' •')[0];
+            fecharModalPesos();
+            atualizarTudo();
+        };
+        containerLista.appendChild(btn);
+    });
+    document.getElementById('modal-pesos').classList.remove('hidden');
+}
+
+
+        function fecharModalPesos() { document.getElementById('modal-pesos').classList.add('hidden'); }
+
+        function abrirModalEspecialNinho() {
+            const select = document.getElementById('recheio-especial');
+            const containerLista = document.getElementById('lista-especial-ninho-modal');
+            containerLista.innerHTML = '';
+
+            Array.from(select.options).forEach((opcao) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = "w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30";
+                if(select.value === opcao.value) {
+                    btn.classList.add('border-primary', 'bg-secondary/20');
+                }
+                btn.innerHTML = `<span>${opcao.text}</span><i class="fa fa-star text-accent"></i>`;
+                btn.onclick = function() {
+                    select.value = opcao.value;
+                    document.getElementById('text-trigger-especial-ninho').textContent = opcao.text;
+                    fecharModalEspecialNinho();
+                    atualizarTudo();
+                };
+                containerLista.appendChild(btn);
+            });
+            document.getElementById('modal-especial-ninho').classList.remove('hidden');
+        }
+        function fecharModalEspecialNinho() { document.getElementById('modal-especial-ninho').classList.add('hidden'); }
+
+        function abrirModalEspecialBrigadeiro() {
+            const select = document.getElementById('recheio-brigadeiro-especial');
+            const containerLista = document.getElementById('lista-especial-brigadeiro-modal');
+            containerLista.innerHTML = '';
+
+            Array.from(select.options).forEach((opcao) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = "w-full text-left p-4 border border-secondary rounded-xl hover:border-primary/50 font-medium text-neutral flex items-center justify-between transicao bg-light/30";
+                if(select.value === opcao.value) {
+                    btn.classList.add('border-primary', 'bg-secondary/20');
+                }
+                btn.innerHTML = `<span>${opcao.text}</span><i class="fa fa-star text-accent"></i>`;
+                btn.onclick = function() {
+                    select.value = opcao.value;
+                    document.getElementById('text-trigger-especial-brigadeiro').textContent = opcao.text;
+                    fecharModalEspecialBrigadeiro();
+                    atualizarTudo();
+                };
+                containerLista.appendChild(btn);
+            });
+            document.getElementById('modal-especial-brigadeiro').classList.remove('hidden');
+        }
+        function fecharModalEspecialBrunadeiro() { document.getElementById('modal-especial-brigadeiro').classList.add('hidden'); }
+        function fecharModalEspecialBrigadeiro() { document.getElementById('modal-especial-brigadeiro').classList.add('hidden'); }
 
         function atualizarTudo() {
             const andarSelecionado = document.getElementById('andares').value;
@@ -706,25 +940,24 @@
                 
                 if (andarSelecionado === "1") {
                     selectPeso.innerHTML = `
-                        <option value="1kg" data-preco-60="60" data-preco-75="75">1 kg • 13com</option>
+                        <option value="1kg" data-preco-60="60" data-preco-75="75">1 kg • 13cm</option>
                         <option value="2kg" data-preco-60="120" data-preco-75="150">2 kg • 15cm</option>
-                        <option value="2,5kg" data-preco-60="120" data-preco-75="150">2 kg • 17cm</option>
+                        <option value="2,5kg" data-preco-60="150" data-preco-75="183">2,5 kg • 17cm</option>
                         <option value="3kg" data-preco-60="180" data-preco-75="225">3 kg • 20cm</option>
                         <option value="4kg" data-preco-60="240" data-preco-75="300">4 kg • 22cm</option>
                         <option value="5kg" data-preco-60="300" data-preco-75="375">5 kg • 25cm</option>
-                        <option value="7kg" data-preco-60="420" data-preco-75="525">7 kg • 35cm</option>
-                        
-                        
+                        <option value="7kg" data-preco-60="420" data-preco-75="525">7 kg • 30cm</option>                       
                     `;
                 } else if (andarSelecionado === "2") {
                     selectPeso.innerHTML = `
-                        <option value="piso2kg_topo1.5kg" data-preco-60="210" data-preco-75="262.5">Base 17 cm (2,5 kg) + Topo 13 cm (1 kg)</option>
-                        <option value="piso3kg_topo2.5kg" data-preco-60="330" data-preco-75="412.5">Base 22 cm (4 kg) + Topo 15 cm (2 kg)</option>
-                    `;
+        <option value="Base2,5kg_topo1kg" data-preco-60="210" data-preco-75="262.5">(Base: 17cm ⇄ 2 kg) <br> <span class="text-primary block text-center font-bold my-0.5">+</span> (Topo: 13cm ⇄ 1 kg)</option>
+        <option value="Base4kg_topo2.6kg" data-preco-60="360" data-preco-75="420">(Base: 22cm ⇄ 4 kg) <br> <span class="text-primary block text-center font-bold my-0.5">+</span> (Topo: 15cm ⇄ 2 kg)</option>
+                `;               
+
                 } else if (andarSelecionado === "3") {
                     selectPeso.innerHTML = `
-                        <option value="piso2kg_meio1kg_topo600g" data-preco-60="216" data-preco-75="270">Base 22 cm (4 kg) + Meio 17 cm (2,5 kg) + Topo 13 cm (1 kg)</option>
-                    `;
+        <option value="piso4kg_meio2,5kg_topo1kg" data-preco-60="450" data-preco-75="562,5">(Base: 22cm ⇄ 4 kg) <br> <span class="text-primary block text-center font-bold my-0.5">+</span> (Meio: 17cm ⇄ 2,5 kg) <br> <span class="text-primary block text-center font-bold my-0.5">+</span>(Topo: 13cm ⇄ 1 kg)</option>
+                `;               
                 }
             }
 
@@ -742,6 +975,11 @@
             const opcaoPesoSelected = selectPeso.options[selectPeso.selectedIndex];
             const textoPeso = opcaoPesoSelected ? opcaoPesoSelected.text.split(' •')[0] : '---';
             const precoPeso = opcaoPesoSelected ? parseFloat(opcaoPesoSelected.getAttribute(`data-preco-${precoPorKg}`)) : 0;
+
+            // Sincroniza o texto do gatilho customizado com o select estrutural do HTML
+            if(opcaoPesoSelected) {
+                document.getElementById('text-trigger-pesos').textContent = opcaoPesoSelected.text.split(' •')[0];
+            }
 
             const imagensAndares = {
                 "1": "https://i.pinimg.com/736x/30/4b/32/304b32cbaf12cbaa99e5c9b7dfe6f63d.jpg",
@@ -790,7 +1028,7 @@
             const hora = document.getElementById('hora').value;
 
             if(!data || !hora) {
-                alert('⚠️ Preencha a data e horário de entrega clicando em "Definir data e horário"!');
+                dispararAlerta("Agendamento Necessário", 'Preencha a data e horário de entrega clicando em "Definir data e horário"!', "aviso");
                 abrirModalData();
                 return;
             }
@@ -813,11 +1051,6 @@
         }
 
         document.getElementById('mensagem').addEventListener('input', atualizarTudo);
-        document.getElementById('peso').addEventListener('change', atualizarTudo);
-        
-        document.getElementById('andares').addEventListener('change', function() {
-            rolarPara('peso');
-        });
 
         document.querySelectorAll('input[type="checkbox"]').forEach(el => {
             el.addEventListener('change', function() {
@@ -836,12 +1069,6 @@
                 }
                 
                 atualizarTudo();
-
-                if (marcados.length === limiteMaximo) {
-                    if (this.id !== "check-ninho" && this.id !== "check-brigadeiro") {
-                        rolarPara('passo4');
-                    }
-                }
             });
         });
 
