@@ -1173,7 +1173,7 @@ if(buttonBadge) {
             document.body.classList.remove('modal-open');
         }
         
-        function abrirFinalizar() {
+         function abrirFinalizar() {
             const blocoLoc = document.getElementById('blocoLocalizacao');
             const blocoSemEntrega = document.getElementById('blocoSemEntrega');
             const areaNome = document.getElementById('areaNome');
@@ -1191,6 +1191,9 @@ if(buttonBadge) {
 
             document.getElementById('finalizarModal').style.display = 'flex';
             document.body.classList.add('modal-open');
+            
+            // Oculta o rodapé fixo na tela de finalizar
+            document.querySelector('.bottom-nav').style.display = 'none';
         }
 
         function abrirPelaNav(tipo) {
@@ -1209,16 +1212,24 @@ if(buttonBadge) {
                 areaNome.style.display = "block"; 
                 document.getElementById('finalizarModal').style.display = 'flex';
                 document.body.classList.add('modal-open');
+                
+                // Oculta o rodapé fixo na tela de finalizar
+                document.querySelector('.bottom-nav').style.display = 'none';
             }
         }
 
         function fecharFinalizar() { 
             document.getElementById('finalizarModal').style.display = 'none'; 
+            
+            // Mostra o rodapé fixo novamente ao fechar
+            document.querySelector('.bottom-nav').style.display = 'flex';
+            
             // Só libera a rolagem se o carrinho também estiver fechado
             if(document.getElementById('cartModal').style.display !== 'flex') {
                 document.body.classList.remove('modal-open');
             }
         }
+       
 
         function pegarLocalizacao() {
             const btn = document.getElementById('btnLoc');
@@ -1392,16 +1403,13 @@ function verificarStatusPagamento(idTransacao) {
                     </div>
                 `;
                 
-                // 3. Deixa o botão criado no fundo por segurança (caso o bloqueador de pop-up do celular barre o redirecionamento automático)
+                // 3. Cria apenas o botão bonito para o cliente clicar e finalizar
                 const container = document.getElementById('containerBotaoWhatsapp');
                 container.innerHTML = `
-                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
-                        ✅ Abrir WhatsApp Manualmente (Caso não tenha aberto)
+                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold; font-size: 16px;">
+                        Finalizar Pedido via WhatsApp
                     </button>
                 `;
-
-                // 4. MÁGICA DO DISPARO AUTOMÁTICO: Envia o cliente direto para o WhatsApp
-                enviarPedidoWhatsApp();
             }
 
 
@@ -1444,16 +1452,20 @@ function enviarPedidoWhatsApp() {
     mensagem += `🔴*ATENÇÃO*🔴`;
     mensagem += `Nos enviar o comprovante para validar sua compra e darmos continuidade com o seu atendimento`;
 
-    // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
+      // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
     cart = [];
     renderCart();
     document.body.classList.remove('modal-open');
     document.getElementById('finalizarModal').style.display = 'none';
     document.getElementById('cartModal').style.display = 'none';
+    
+    // Mostra o rodapé novamente para a tela inicial voltar ao normal
+    document.querySelector('.bottom-nav').style.display = 'flex';
 
     // Dispara para o seu número do WhatsApp
     window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
 }
+  
 
 
     </script>
