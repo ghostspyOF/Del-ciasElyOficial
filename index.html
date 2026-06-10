@@ -52,6 +52,11 @@
         body.modal-open {
             overflow: hidden;
         }
+        /* Esconde o rodapé de direitos autorais quando um modal estiver aberto */
+body.modal-open footer {
+    display: none;
+}
+        
      
        /* --- ESTILO DO CARROSSEL --- */
         .carousel-container {
@@ -748,6 +753,7 @@
 </div>
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
+</div>          
       
     
 
