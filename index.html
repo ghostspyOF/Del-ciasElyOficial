@@ -1306,6 +1306,8 @@ if(buttonBadge) {
     
     
     let checkoutInterval; // Controlará a checagem automática do pagamento
+// Cole aqui a URL exata do seu Google Apps Script (App da Web) gerada após o Deploy
+const URL_DO_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzvayFwWEFENOn_sbKawz3eLf_8CL6lCCleSCEslreWLjOOflf4RP7BW0ZVqx9dWGch9w/exec";
 
 function copiarPix() {
     const textoPix = document.getElementById('inputPixCopiaCola');
@@ -1325,22 +1327,22 @@ async function iniciarFluxoPagamento() {
 
     try {
         // 1. CHAMA O SEU BACKEND PARA CRIAR O PIX DINÂMICO
-        // Você precisará substituir a URL abaixo pela URL do seu servidor real
-        const resposta = await fetch('https://script.google.com/macros/s/AKfycbzvayFwWEFENOn_sbKawz3eLf_8CL6lCCleSCEslreWLjOOflf4RP7BW0ZVqx9dWGch9w/exec', 
+        const resposta = await fetch(URL_DO_APPS_SCRIPT, 
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ valor: total, cliente: nome })
         });
         
-        const dadosPix = await response.json(); // Retorna { copiaCola: '...', idTransacao: '123' }
+        // CORRIGIDO: de response.json() para resposta.json()
+        const dadosPix = await resposta.json(); 
 
         // 2. MOSTRA O CÓDIGO NA TELA
         document.getElementById('inputPixCopiaCola').value = dadosPix.copiaCola;
         document.getElementById('btnGerarPix').style.display = 'none';
         document.getElementById('blocoPix').style.display = 'block';
 
-        // 3. RECONHECE O PAGAMENTO AUTOMATICAMENTE (Fica perguntando ao servidor se foi pago)
+        // 3. RECONHECE O PAGAMENTO AUTOMATICAMENTE
         verificarStatusPagamento(dadosPix.idTransacao);
 
     } catch (error) {
@@ -1353,8 +1355,11 @@ function verificarStatusPagamento(idTransacao) {
     // Pergunta ao seu servidor a cada 5 segundos se o banco confirmou o Pix
     checkoutInterval = setInterval(async () => {
         try {
-            const resposta = await fetch(`https://seu-servidor.com/status-pix.php?id=${idTransacao}`);
-            const statusData = await response.json(); // Retorna { pago: true/false }
+            // CORRIGIDO: Agora aponta para a planilha ao invés de 'seu-servidor.com'
+            const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
+            
+            // CORRIGIDO: de response.json() para resposta.json()
+            const statusData = await resposta.json(); 
 
             if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de perguntar
@@ -1364,14 +1369,14 @@ function verificarStatusPagamento(idTransacao) {
                 document.getElementById('statusPagamento').style.animation = "none";
                 
                 setTimeout(() => {
-                    // Próximo passo: Dispara o envio dos dados pro seu WhatsApp com o status de já pago
+                    // Dispara o envio dos dados pro seu WhatsApp com o status de já pago
                     enviarPedidoWhatsAppConfirmado(); 
                 }, 1500);
             }
         } catch (e) {
             console.error("Erro ao checar status.");
         }
-    }, 5000); // 5000 milisegundos = 5 segundos
+    }, 5000); // Executa de 5 em 5 segundos
 }
 
     </script>
