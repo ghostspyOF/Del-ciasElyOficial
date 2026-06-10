@@ -747,7 +747,8 @@
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
 
-            <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Finalizar Pedido via WhatsApp</button>
+        <button class="btn-add" id="btnWhatsapp" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px; display: none;">Finalizar Pedido via WhatsApp</button>
+            
         </div>
     </div>
 
@@ -1358,33 +1359,33 @@ async function iniciarFluxoPagamento() {
 
 
 function verificarStatusPagamento(idTransacao) {
-    // Pergunta ao seu servidor a cada 5 segundos se o banco confirmou o Pix
     checkoutInterval = setInterval(async () => {
         try {
             const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
             const statusData = await resposta.json(); 
 
             if (statusData.pago === true) {
-                clearInterval(checkoutInterval); // Para de perguntar
+                clearInterval(checkoutInterval); // Para de checar
                 
-                // MUDANÇA DE PASSO AUTOMÁTICA
+                // 1. Muda o texto de status
                 document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
                 document.getElementById('statusPagamento').style.animation = "none";
                 
-                setTimeout(() => {
-                    // Dispara o envio dos dados pro seu WhatsApp com o status de já pago
-                    enviarPedidoWhatsAppConfirmado(); 
-                }, 1500);
+                // 2. MOSTRA O BOTÃO DO WHATSAPP (Deixa ele visível para o cliente clicar)
+                document.getElementById('btnWhatsapp').style.display = 'block';
             }
         } catch (e) {
             console.error("Erro ao checar status.");
         }
-    }, 5000); // Executa de 5 em 5 segundos
+    }, 5000);
 }
 
+
 // NOVA FUNÇÃO CORRIGIDA: Envia para o WhatsApp avisando que o PIX já foi pago e aprovado!
-function enviarPedidoWhatsAppConfirmado() {
+function enviarPedidoWhatsApp() {
     const nome = document.getElementById('nomeCliente').value;
+    if(!nome) return alert("Por favor, digite seu nome.");
+    
     const metodo = document.getElementById('metodoRetirada').value;
     
     let total = 0;
@@ -1404,16 +1405,16 @@ function enviarPedidoWhatsAppConfirmado() {
     mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
     mensagem += `*Itens:*%0A${itensTexto}%0A`;
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
-    mensagem += `Status: *Pagamento Aprovado pelo Sistema* 🟢`;
+    mensagem += `Status: *Pagamento Confirmado e Enviado pelo Cliente* 🟢`;
 
-    // Limpa o carrinho
+    // Limpa o carrinho e fecha as telas apenas DEPOIS de gerar o texto
     cart = [];
     renderCart();
     document.body.classList.remove('modal-open');
     document.getElementById('finalizarModal').style.display = 'none';
     document.getElementById('cartModal').style.display = 'none';
 
-    // Abre o WhatsApp
+    // Abre o WhatsApp com o pedido pronto
     window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
 }
 
