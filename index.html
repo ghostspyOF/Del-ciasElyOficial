@@ -738,17 +738,18 @@
 
             <input type="hidden" id="metodoRetirada" value="Vou buscar pessoalmente">
 
-            <div id="blocoPix" style="display: none; margin-top: 20px; background: #f0fdf4; padding: 20px; border-radius: 14px; border: 1px solid #bbf7d0;">
+<div id="blocoPix" style="display: none; margin-top: 20px; background: #f0fdf4; padding: 20px; border-radius: 14px; border: 1px solid #bbf7d0;">
     <p style="font-weight: 700; color: #166534;">Pix Gerado com Sucesso!</p>
     <textarea id="inputPixCopiaCola" readonly style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px; border: 1px solid #34d399; font-size: 11px; height: 60px;"></textarea>
     <button class="btn-add" onclick="copiarPix()" style="background: #2a9d8f; color: white; margin-top: 10px;">Copiar Código Pix</button>
     <p id="statusPagamento" style="margin-top: 15px; font-weight: bold; color: #15803d; animation: blink 1s infinite;">⏳ Aguardando pagamento...</p>
+    
+    <div id="containerBotaoWhatsapp"></div>
 </div>
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
+      
     
-        </div>
-    </div>
 
     <footer>
         <p style="font-size:18px;"><strong>Delicias da Ely</strong></p>
@@ -1356,30 +1357,31 @@ async function iniciarFluxoPagamento() {
 }
 
 function verificarStatusPagamento(idTransacao) {
+    // Pergunta ao seu Apps Script a cada 5 segundos se o banco confirmou o Pix
     checkoutInterval = setInterval(async () => {
         try {
             const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
             const statusData = await resposta.json(); 
 
             if (statusData.pago === true) {
-                clearInterval(checkoutInterval); // Para de checar o banco
+                clearInterval(checkoutInterval); // Para de perguntar ao servidor
                 
                 // 1. Atualiza o texto de status na tela
                 document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
                 document.getElementById('statusPagamento').style.animation = "none";
                 
-                // 2. CRIA O BOTÃO DO ZERO (O F12 não consegue achar o que não existia)
+                // 2. Cria o botão do WhatsApp do zero de forma totalmente segura
                 const container = document.getElementById('containerBotaoWhatsapp');
                 container.innerHTML = `
-                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px; display: block; width: 100%;">
-                        Finalizar Pedido via WhatsApp
+                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
+                        ✅ Enviar Pedido Pago para o WhatsApp
                     </button>
                 `;
             }
         } catch (e) {
-            console.error("Erro ao checar status.");
+            console.error("Erro ao checar status do pagamento.");
         }
-    }, 5000); // Checa de 5 em 5 segundos
+    }, 5000);
 }
 
 
@@ -1395,6 +1397,7 @@ function enviarPedidoWhatsApp() {
     let total = 0;
     let itensTexto = "";
     
+    // Pega os itens reais que estão no carrinho antes de apagar
     cart.forEach(item => {
         itensTexto += `- ${item.qty}x ${item.name} (R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')})%0A`;
         total += item.price * item.qty;
@@ -1402,23 +1405,24 @@ function enviarPedidoWhatsApp() {
 
     let totalChave = total.toFixed(2); 
 
-    let mensagem = `✅ *PEDIDO PAGO VIA PIX* ✅%0A`;
-    mensagem += `🛎️ Prontinho para produção!%0A%0A`;
+    // Monta o texto automático profissional focado no pagamento Pix aprovado
+    let mensagem = `✅ *NOVO PEDIDO PAGO VIA PIX* ✅%0A`;
+    mensagem += `🛎️ _Esse pedido já foi aprovado pelo sistema e está pronto para produção._%0A%0A`;
     mensagem += `*Cliente:* ${nome}%0A`;
     mensagem += `*Localização:* ${userLocation}%0A`;
     mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
-    mensagem += `*Itens:*%0A${itensTexto}%0A`;
+    mensagem += `*Itens do Pedido:*%0A${itensTexto}%0A`;
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
-    mensagem += `Status: *Pagamento Confirmado e Enviado pelo Cliente* 🟢`;
+    mensagem += `Status: *PAGAMENTO CONFIRMADO PELO BANCO* 🟢`;
 
-    // Limpa o carrinho e fecha as telas apenas DEPOIS de gerar o texto
+    // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
     cart = [];
     renderCart();
     document.body.classList.remove('modal-open');
     document.getElementById('finalizarModal').style.display = 'none';
     document.getElementById('cartModal').style.display = 'none';
 
-    // Abre o WhatsApp com o pedido pronto
+    // Dispara para o seu número do WhatsApp
     window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
 }
 
