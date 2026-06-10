@@ -746,9 +746,7 @@
 </div>
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
-
-        <button class="btn-add" id="btnWhatsapp" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px; display: none;">Finalizar Pedido via WhatsApp</button>
-            
+    
         </div>
     </div>
 
@@ -1357,7 +1355,6 @@ async function iniciarFluxoPagamento() {
     }
 }
 
-
 function verificarStatusPagamento(idTransacao) {
     checkoutInterval = setInterval(async () => {
         try {
@@ -1365,20 +1362,27 @@ function verificarStatusPagamento(idTransacao) {
             const statusData = await resposta.json(); 
 
             if (statusData.pago === true) {
-                clearInterval(checkoutInterval); // Para de checar
+                clearInterval(checkoutInterval); // Para de checar o banco
                 
-                // 1. Muda o texto de status
+                // 1. Atualiza o texto de status na tela
                 document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
                 document.getElementById('statusPagamento').style.animation = "none";
                 
-                // 2. MOSTRA O BOTÃO DO WHATSAPP (Deixa ele visível para o cliente clicar)
-                document.getElementById('btnWhatsapp').style.display = 'block';
+                // 2. CRIA O BOTÃO DO ZERO (O F12 não consegue achar o que não existia)
+                const container = document.getElementById('containerBotaoWhatsapp');
+                container.innerHTML = `
+                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px; display: block; width: 100%;">
+                        Finalizar Pedido via WhatsApp
+                    </button>
+                `;
             }
         } catch (e) {
             console.error("Erro ao checar status.");
         }
-    }, 5000);
+    }, 5000); // Checa de 5 em 5 segundos
 }
+
+
 
 
 // NOVA FUNÇÃO CORRIGIDA: Envia para o WhatsApp avisando que o PIX já foi pago e aprovado!
