@@ -623,6 +623,13 @@
             fill: var(--accent-dark);
             margin-bottom: 4px;
         }
+
+        /* Animação de pulsação para frente e para trás */
+@keyframes pulsarIcone {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+    
     </style>
 </head>
 <body>
@@ -1363,14 +1370,30 @@ function verificarStatusPagamento(idTransacao) {
             const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
             const statusData = await resposta.json(); 
 
-            if (statusData.pago === true) {
+                        if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de perguntar ao servidor
                 
-                // 1. Atualiza o texto de status na tela
-                document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
-                document.getElementById('statusPagamento').style.animation = "none";
+                // 1. Esconde a área do código Pix (Textarea e Botão Copiar)
+                document.getElementById('inputPixCopiaCola').style.display = 'none';
+                // Como o botão de copiar não tem ID próprio, selecionamos ele pelo seletor do clique
+                const btnCopiar = document.querySelector("#blocoPix button[onclick='copiarPix()']");
+                if(btnCopiar) btnCopiar.style.display = 'none';
                 
-                // 2. Cria o botão do WhatsApp do zero de forma totalmente segura
+                // 2. Transforma o texto antigo de carregamento no Círculo Pulsante com o 👍
+                const statusPagamento = document.getElementById('statusPagamento');
+                statusPagamento.style.animation = "none"; // Remove o piscar antigo
+                statusPagamento.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div style="width: 80px; height: 80px; background-color: #2ec4b6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 20px rgba(46, 196, 182, 0.4); animation: pulsarIcone 1.5s infinite ease-in-out;">
+                            👍
+                        </div>
+                        <span style="font-size: 18px; font-weight: 900; color: #15803d; margin-top: 15px; display: block;">
+                            ✅ PAGAMENTO CONFIRMADO!
+                        </span>
+                    </div>
+                `;
+                
+                // 3. Cria o botão do WhatsApp do zero de forma totalmente segura
                 const container = document.getElementById('containerBotaoWhatsapp');
                 container.innerHTML = `
                     <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
@@ -1378,6 +1401,7 @@ function verificarStatusPagamento(idTransacao) {
                     </button>
                 `;
             }
+
         } catch (e) {
             console.error("Erro ao checar status do pagamento.");
         }
