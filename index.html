@@ -1,4 +1,14 @@
 
+Diga somente onde mexer e o que mexer 
+Como eu faço para quando o sistema reconhecer o pagamento.
+
+O botão Cópia Código Pix com o campo acima suma
+E no lugar deles ficar um circulo com uma cor legal e com o ícone: 👍 com a cor verde e ele fica pulsando para frente e para trás.
+Abaixo fica a frase: 
+✅ PAGAMENTO CONFIRMADO!
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -622,16 +632,6 @@
             fill: var(--accent-dark);
             margin-bottom: 4px;
         }
-
-        /* Animação de pulsação para frente e para trás */
-/* Animação de pulsação para o círculo do 👍 */
-@keyframes pulsarIcone {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(46, 196, 182, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 196, 182, 0); }
-}
-
-    
     </style>
 </head>
 <body>
@@ -1375,43 +1375,23 @@ function verificarStatusPagamento(idTransacao) {
             if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de perguntar ao servidor
                 
-                // 1. Esconde a área antiga do Pix (código, caixas e botões de copiar)
-                document.getElementById('inputPixCopiaCola').style.display = 'none';
-                const btnCopiar = document.querySelector("#blocoPix button[onclick='copiarPix()']");
-                if(btnCopiar) btnCopiar.style.display = 'none';
+                // 1. Atualiza o texto de status na tela
+                document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
+                document.getElementById('statusPagamento').style.animation = "none";
                 
-                // 2. Transforma o status no Círculo Lindo com o 👍 Pulsando
-                const statusPagamento = document.getElementById('statusPagamento');
-                statusPagamento.style.animation = "none"; 
-                statusPagamento.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 30px 0;">
-                        <div style="width: 90px; height: 90px; background-color: #2ec4b6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 42px; animation: pulsarIcone 1.6s infinite ease-in-out;">
-                            👍
-                        </div>
-                        <span style="font-size: 18px; font-weight: 900; color: #15803d; margin-top: 20px; display: block; letter-spacing: 0.5px;">
-                            PAGAMENTO CONFIRMADO!
-                        </span>
-                    </div>
+                // 2. Cria o botão do WhatsApp do zero de forma totalmente segura
+                const container = document.getElementById('containerBotaoWhatsapp');
+                container.innerHTML = `
+                    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
+                        ✅ Enviar Pedido Pago para o WhatsApp
+                    </button>
                 `;
-                
-                   // 3. Cria o Botão Lindo com o Ícone Oficial do WhatsApp e a cor do sistema
-const container = document.getElementById('containerBotaoWhatsapp');
-container.innerHTML = `
-    <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background: var(--accent-dark); color: white; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; font-weight: 900; font-size: 16px; padding: 15px; border-radius: 50px; border: none; box-shadow: 0 6px 20px rgba(214, 40, 81, 0.3); cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.413 9.863-9.847.001-2.633-1.03-5.107-2.905-6.982C16.547 1.897 14.08 1.864 11.45 1.863 6.017 1.863 1.59 6.276 1.587 11.711c-.001 1.684.453 3.328 1.317 4.77l-.995 3.637 3.748-.984z"/>
-        </svg>
-        Finalizar pedido via WhatsApp
-    </button>
-`;
-
             }
         } catch (e) {
             console.error("Erro ao checar status do pagamento.");
         }
     }, 5000);
 }
-
 
 
 
@@ -1435,16 +1415,14 @@ function enviarPedidoWhatsApp() {
     let totalChave = total.toFixed(2); 
 
     // Monta o texto automático profissional focado no pagamento Pix aprovado
-    let mensagem = `✅ *NOVO PEDIDO* ✅%0A`;
+    let mensagem = `✅ *NOVO PEDIDO PAGO VIA PIX* ✅%0A`;
     mensagem += `🛎️ _Esse pedido já foi aprovado pelo sistema e está pronto para produção._%0A%0A`;
     mensagem += `*Cliente:* ${nome}%0A`;
     mensagem += `*Localização:* ${userLocation}%0A`;
     mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
-    mensagem += `🛍️`;
     mensagem += `*Itens do Pedido:*%0A${itensTexto}%0A`;
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
-    mensagem += `🔴*ATENÇÃO*🔴`;
-    mensagem += `Nos enviar o comprovante para validar sua compra e darmos continuidade com o seu atendimento`;
+    mensagem += `Status: *PAGAMENTO CONFIRMADO PELO BANCO* 🟢`;
 
     // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
     cart = [];
