@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,7 +9,7 @@
     <meta property="og:title" content="Delícias da Ely - Bolos Caseiros">
     <meta property="og:description" content="Peça os melhores bolos de Anápolis direto pelo WhatsApp.">
     <meta name="theme-color" content="#fff0f2">
-
+    
     <title>Delicias da Ely</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght=500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -22,7 +24,7 @@
             --accent: #ffe3e7; /* IDEIA 4: Rosa principal bem mais fraquinho/pastel */
             --accent-dark: #d62851; /* IDEIA 4: Ajustado para harmonizar com o rosa claro */
             --gold: #ffe5ea; 
-
+            
             /* Efeito Vidro Base */
             --glass-bg: rgba(255, 255, 255, 0.6);
             --glass-border: rgba(255, 255, 255, 0.7);
@@ -50,7 +52,7 @@
         body.modal-open {
             overflow: hidden;
         }
-
+     
        /* --- ESTILO DO CARROSSEL --- */
         .carousel-container {
             display: flex;
@@ -85,7 +87,7 @@
     /* Adicione a URL da sua imagem de capa entre os parênteses abaixo */
     background: url('https://i.ibb.co/VYKz2k68/99052.jpg') no-repeat center top;
     background-size: 100% 40%; /* Faz a imagem ocupar 100% da largura e ir exatamente até a metade da altura */
-
+    
     /* Mantenha ou ajuste as propriedades abaixo que já existem no seu código */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -209,7 +211,7 @@
 
         /* --- INFO CARDS --- */
         .info-cards { padding: 15px; text-align: center; }
-
+        
         .btn-criar-bolo {
             background: linear-gradient(135deg, #ffb3c1, var(--accent), #ffb3c1);
             color: var(--rodape);
@@ -226,7 +228,7 @@
             transition: transform 0.3s ease;
             width: 90%;
         }
-
+        
         .btn-criar-bolo:active { transform: scale(0.95); }
 
         .info-card {
@@ -391,8 +393,8 @@
         }
 
         /* Customização dos itens da lista (IDEIA 3) */
-
-
+           
+    
                 .cart-item {
             display: flex;
             align-items: center;
@@ -404,7 +406,7 @@
             border: 1px solid rgba(0,0,0,0.03);
             border-radius: 16px;
         }
-
+   
          .cart-item-img {
             width: 50px;
             height: 50px;
@@ -432,7 +434,7 @@
             align-items: center;
             gap: 10px;
         }
-
+ 
 
 
                 .cart-item-img {
@@ -484,7 +486,7 @@
         }
 
         .footer-links { margin-top: 15px; font-size: 14px; text-decoration: underline; opacity: 0.6; }
-
+    
         .linha-rosa {
             width: 50%; 
             margin: 2px auto;
@@ -533,7 +535,7 @@
         .input-cliente:focus {
             border-color: var(--accent-dark);
         }
-
+    
         /* --- ESTILOS DOS CARDS DE SELEÇÃO --- */
         .metodo-container {
             display: flex;
@@ -578,7 +580,7 @@
             transform: scale(1.02);
             box-shadow: 0 6px 15px rgba(199, 125, 142, 0.1);
         }
-
+    
         /* --- CORREÇÃO DO RODAPÉ FIXO CENTRALIZADO --- */
         .bottom-nav {
             position: fixed;
@@ -621,13 +623,6 @@
             fill: var(--accent-dark);
             margin-bottom: 4px;
         }
-
-        /* Animação de pulsação para frente e para trás */
-@keyframes pulsarIcone {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-
     </style>
 </head>
 <body>
@@ -671,11 +666,11 @@
 
     <hr class="linha-rosa-2">
     <div class="section-name" style="text-align: center;">Bolos para Encomendas<br>💗</div>
-
+    
     <div class="carousel-container" id="carrossel-bolos"></div>
 
 <div id="cartModal" class="modal-cart">
-
+    
         <span class="close-modal" onclick="closeCart()" style="position: absolute; top: 0; right: 0; margin: 9px;">Voltar</span>
         <p style="text-align: center; margin-bottom: 20px; color: var(--accent-dark);"><strong>Sacola</strong></p>     
 <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.06); margin-bottom: 15px;">           
@@ -688,8 +683,8 @@
         </p>
     </div>
     </div>
-
-
+      
+        
         <p style="font-size: 10px;"><strong>Itens adicionados</strong></p>
         <div id="cartItemsList" class="cart-items-list"></div>       
         <div id="produtosExtrasCarrinho" style="margin-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 15px;">
@@ -697,7 +692,7 @@
              <p><strong style="font-size: 13px;">Peça também:</strong></p>
             <div id="lista-extras-carrinho" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px;"></div>           
         </div>
-
+        
         <div id="cartFooterActions" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px;">          
             <h3 id="totalPrice" style="font-size:22px; font-weight:900; color:var(--rodape); margin: 0;">R$ 0,00</h3>
             <button id="btnIrFinalizar" onclick="abrirFinalizar()" style="margin: 0; background:var(--accent-dark); color:white; border: none; border-radius: 25px; padding: 12px 24px; white-space: nowrap; display: flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer;">
@@ -709,7 +704,7 @@
     <div id="finalizarModal">      
         <div style="text-align: right; width: 100%;"><span class="close-modal" onclick="fecharFinalizar()">X Fechar</span></div>
         <h2 style="color: var(--rodape); margin-bottom: 20px; font-weight: 900; margin-top: 10px;">Finalizar Pedido</h2>
-
+        
         <div id="blocoLocalizacao">
             <p style="margin-bottom:15px; font-weight:500;">Para calcularmos o valor da entregar, precisamos da sua localização:</p>
             <button id="btnLoc" class="btn-add" onclick="pegarLocalizacao()" style="background: var(--gold); margin-bottom: 20px;">Confirmar Localização Exata</button>
@@ -724,16 +719,16 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 2 2 2zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>  
                 Quem irá receber/retirar o pedido?</p>
             <input type="text" id="nomeCliente" class="input-cliente" placeholder="Digite seu nome completo" autocomplete="name" required>
-
+            
             <p style="margin-top: 20px; font-weight: bold; margin-bottom: 15px; text-align: left;">Como prefere receber o pedido?</p>
-
+            
             <div class="metodo-container">
                 <div class="metodo-card active" onclick="selecionarMetodo('Vou buscar pessoalmente', this)">
                     <span class="metodo-icon">🛍️</span>
                     <span class="metodo-titulo">Retirar Pessoalmente</span>
                     <span class="metodo-sub">Vou buscar na Ely</span>
                 </div>
-
+                
                 <div class="metodo-card" onclick="selecionarMetodo('Vou mandar Uber/99 retirar', this)">
                     <span class="metodo-icon">🚗 🏍️</span>
                     <span class="metodo-titulo">Mandar Uber/99</span>
@@ -748,13 +743,13 @@
     <textarea id="inputPixCopiaCola" readonly style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px; border: 1px solid #34d399; font-size: 11px; height: 60px;"></textarea>
     <button class="btn-add" onclick="copiarPix()" style="background: #2a9d8f; color: white; margin-top: 10px;">Copiar Código Pix</button>
     <p id="statusPagamento" style="margin-top: 15px; font-weight: bold; color: #15803d; animation: blink 1s infinite;">⏳ Aguardando pagamento...</p>
-
+    
     <div id="containerBotaoWhatsapp"></div>
 </div>
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
-
-
+      
+    
 
     <footer>
         <p style="font-size:18px;"><strong>Delicias da Ely</strong></p>
@@ -767,7 +762,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             <span>Home</span>
         </div>
-
+               
         <a href="https://wa.me/556282212325" target="_blank" class="nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
          <path fill="#e4a8a6" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
@@ -787,7 +782,7 @@
     </svg>
     <span>Criar Site</span>
         </a>
-
+        
         <a href="Editar-Site-Ely.html" target="_blank" class="nav-item">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path fill="#e4a8a6" d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
@@ -806,11 +801,11 @@
             try {
                 const response = await fetch(sheetURL);
                 const data = await response.text();
-
+                
                 if (data.includes("BOTAO-ATIVO-OK")) {
                     botaoAtivoPlanilha = true;
                 }
-
+                
                 const lines = data.split(/\r?\n/);
 
                 lines.forEach((line, index) => {
@@ -820,7 +815,7 @@
                     row = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                       }
 
-
+                    
                     const cleanRow = row.map(cell => cell.replace(/^"|"$|'/g, '').trim());
 
                     if (index === 0 && cleanRow[1]?.toLowerCase() === "id") return;
@@ -839,11 +834,11 @@
                     }
 
                     let element = document.getElementById('prod-' + id);
-
+                    
                     if (!element) {
                         const idNum = parseInt(id);
                         if (isNaN(idNum)) return; 
-
+                        
                         if (idNum >= 1000) {
                             const container = document.getElementById('container-ofertas');
                             const div = document.createElement('div');
@@ -878,7 +873,7 @@
                             element = div;
                         }
                          else if (idNum >= 200 && idNum <= 299) {
-
+                             
     // CRIA A CÓPIA PEQUENA EXCLUSIVA PARA DENTRO DO CARRINHO                  
                             const containerCarrinho = document.getElementById('lista-extras-carrinho');
 const divCart = document.createElement('div');
@@ -898,7 +893,7 @@ containerCarrinho.appendChild(divCart);
                         }
                     }
 
-
+                    
                                     if (element) {
                         if (img && img.startsWith('http')) element.querySelector('.prod-img').src = img;
                         if (nome) element.querySelector('.prod-nome').innerText = nome;
@@ -909,7 +904,7 @@ containerCarrinho.appendChild(divCart);
                         if (nome) element.querySelector('.prod-nome').innerText = nome;
                         if (precoReal) element.querySelector('.prod-preco-novo').innerText = precoReal;
                     }
-
+                    
                     // NOVA ADIÇÃO: Preenche também as informações do card pequeno dentro do carrinho
                     let elementExtra = document.getElementById('prod-extra-' + id);
                     if (elementExtra) {
@@ -942,7 +937,7 @@ containerCarrinho.appendChild(divCart);
                     // Só anima se o carrossel realmente tiver produtos carregados dentro
                     if (carrossel.children.length > 0) {
                         carrossel.scrollTo({ left: 70, behavior: 'smooth' });
-
+                        
                         setTimeout(() => {
                             carrossel.scrollTo({ left: 0, behavior: 'smooth' });
                         }, 600);
@@ -988,7 +983,7 @@ containerCarrinho.appendChild(divCart);
 function addToCartByElement(id, event) {
     // Verifica se a loja está fechada olhando o texto do badge de status
     const statusAtual = document.getElementById('status-label').innerText;
-
+    
     if (statusAtual === "FECHADO") {
         // Cria um alerta bonito flutuante na tela
         const alertaBonito = document.createElement('div');
@@ -1008,12 +1003,12 @@ function addToCartByElement(id, event) {
             </div>
         `;
         document.body.appendChild(alertaBonito);
-
+        
         // Remove o alerta da tela depois de 3 segundos
         setTimeout(() => {
             alertaBonito.remove();
         }, 5000);
-
+        
         return; // Para a execução aqui e não deixa adicionar ao carrinho
     }
 
@@ -1055,13 +1050,13 @@ function addToCartByElement(id, event) {
 
         function renderCart() {
             localStorage.setItem('carrinho_ely', JSON.stringify(cart));
-
+            
             const list = document.getElementById('cartItemsList');
             const totalText = document.getElementById('totalPrice');
             const floatingCart = document.getElementById('floatingCart');
             const badgeCount = document.getElementById('cart-count');
             const actionsBlock = document.getElementById('cartFooterActions');
-
+            
             list.innerHTML = '';
             let total = 0;
             let totalItens = 0;
@@ -1083,7 +1078,7 @@ function addToCartByElement(id, event) {
                 actionsBlock.style.display = "none"; // Oculta o botão de finalizar se estiver vazio
                 document.getElementById('produtosExtrasCarrinho').style.display = "none"; // OCULTA OS EXTRAS SE VAZIO
             }
-
+            
 
              cart.forEach((item, index) => {
                 total += item.price * item.qty;
@@ -1113,7 +1108,7 @@ function addToCartByElement(id, event) {
                     </div>
                 `;
             });
-
+          
 
             if(totalItens > 0) {
                 badgeCount.innerText = totalItens;
@@ -1146,16 +1141,16 @@ if(buttonBadge) {
                 // IDEIA 5: Gerenciamento do Scroll Lock ao abrir/fechar modais
         function openCart() { 
             const cartList = document.getElementById('cartItemsList');
-
+            
             // 1. Abre o modal primeiro
             document.getElementById('cartModal').style.display = 'flex'; 
             document.body.classList.add('modal-open');
-
+            
             // 2. Se houver itens, faz a mágica de rolar até o fim e subir suavemente
             if (cart.length > 0 && cartList) {
                 // Joga instantaneamente para o final da lista
                 cartList.scrollTop = cartList.scrollHeight;
-
+                
                 // Espera um microsegundo para o navegador processar e sobe suavemente
                 setTimeout(() => {
                     cartList.scrollTo({
@@ -1170,7 +1165,7 @@ if(buttonBadge) {
             document.getElementById('cartModal').style.display = 'none'; 
             document.body.classList.remove('modal-open');
         }
-
+        
         function abrirFinalizar() {
             const blocoLoc = document.getElementById('blocoLocalizacao');
             const blocoSemEntrega = document.getElementById('blocoSemEntrega');
@@ -1196,7 +1191,7 @@ if(buttonBadge) {
                 const blocoLoc = document.getElementById('blocoLocalizacao');
                 const blocoSemEntrega = document.getElementById('blocoSemEntrega');
                 const areaNome = document.getElementById('areaNome');
-
+                
                 if (botaoAtivoPlanilha) {
                     blocoLoc.style.display = "block";
                     blocoSemEntrega.style.display = "none";
@@ -1243,7 +1238,7 @@ if(buttonBadge) {
             "50.00": "https://mpago.la/exemplo50reais",
             "60.00": "https://mpago.la/exemplo60reais"
         };
-
+        
         function selecionarMetodo(valor, elemento) {
             document.getElementById('metodoRetirada').value = valor;
             document.querySelectorAll('.metodo-card').forEach(card => {
@@ -1255,12 +1250,12 @@ if(buttonBadge) {
         function enviarPedidoWhatsApp() {
             const nome = document.getElementById('nomeCliente').value;
             if(!nome) return alert("Por favor, digite seu nome.");
-
+            
             const metodo = document.getElementById('metodoRetirada').value;
-
+            
             let total = 0;
             let itensTexto = "";
-
+            
             cart.forEach(item => {
                 itensTexto += `- ${item.qty}x ${item.name} (R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')})%0A`;
                 total += item.price * item.qty;
@@ -1282,7 +1277,7 @@ if(buttonBadge) {
             mensagem += `*Cliente:* ${nome}%0A`;
             mensagem += `*Localização:* ${userLocation}%0A`;
             mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
-
+            
             if(cart.length > 0) {
                 mensagem += `*Itens:*%0A${itensTexto}%0A`;
                 mensagem += `*Total: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
@@ -1290,7 +1285,7 @@ if(buttonBadge) {
             } else {
                 mensagem += `_Cliente iniciando contato para verificar taxas ou fazer orçamento._%0A%0A`;
             }
-
+            
             if(!botaoAtivoPlanilha) {
                 mensagem += `*Sobre a entrega:*%0A`;
                 mensagem += `Opção selecionada pelo cliente: *${metodo}*`;
@@ -1304,11 +1299,11 @@ if(buttonBadge) {
 
             window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
         }
-
-
-
-
-
+    
+    
+    
+    
+    
     let checkoutInterval; // Controlará a checagem automática do pagamento
 // Cole aqui a URL exata do seu Google Apps Script (App da Web) gerada após o Deploy
 const URL_DO_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzvayFwWEFENOn_sbKawz3eLf_8CL6lCCleSCEslreWLjOOflf4RP7BW0ZVqx9dWGch9w/exec";
@@ -1325,7 +1320,7 @@ async function iniciarFluxoPagamento() {
     if(!nome) return alert("Por favor, digite seu nome.");
 
     let total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-
+    
     document.getElementById('btnGerarPix').innerText = "Gerando Pix...";
 
     try {
@@ -1336,7 +1331,7 @@ async function iniciarFluxoPagamento() {
             headers: { 'Content-Type': 'text/plain' }, // Enviar como text/plain evita o pré-envio 'OPTIONS' que o Google rejeita
             body: JSON.stringify({ valor: total, cliente: nome })
         });
-
+        
         const dadosPix = await resposta.json(); 
 
         if (dadosPix.erro) {
@@ -1368,47 +1363,21 @@ function verificarStatusPagamento(idTransacao) {
             const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
             const statusData = await resposta.json(); 
 
-                        if (statusData.pago === true) {
             if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de perguntar ao servidor
-
-                // 1. Esconde a área do código Pix (Textarea e Botão Copiar)
-                document.getElementById('inputPixCopiaCola').style.display = 'none';
-                // Como o botão de copiar não tem ID próprio, selecionamos ele pelo seletor do clique
-                const btnCopiar = document.querySelector("#blocoPix button[onclick='copiarPix()']");
-                if(btnCopiar) btnCopiar.style.display = 'none';
-
-                // 2. Transforma o texto antigo de carregamento no Círculo Pulsante com o 👍
-                // 2. Transforma o texto antigo no Círculo Pulsante com o 👍 e a frase
-                const statusPagamento = document.getElementById('statusPagamento');
-                statusPagamento.style.animation = "none"; // Remove o piscar antigo
-                statusPagamento.style.animation = "none"; 
-                statusPagamento.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0;">
-                        <div style="width: 80px; height: 80px; background-color: #2ec4b6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 20px rgba(46, 196, 182, 0.4); animation: pulsarIcone 1.5s infinite ease-in-out;">
-                            👍
-                        </div>
-                        <span style="font-size: 18px; font-weight: 900; color: #15803d; margin-top: 15px; display: block;">
-                            ✅ PAGAMENTO CONFIRMADO!
-                        </span>
-                    </div>
-                `;
-
-                // 3. Cria o botão do WhatsApp do zero de forma totalmente segura
-                // 3. Deixa o botão criado no fundo por segurança (caso o bloqueador de pop-up do celular barre o redirecionamento automático)
+                
+                // 1. Atualiza o texto de status na tela
+                document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
+                document.getElementById('statusPagamento').style.animation = "none";
+                
+                // 2. Cria o botão do WhatsApp do zero de forma totalmente segura
                 const container = document.getElementById('containerBotaoWhatsapp');
                 container.innerHTML = `
                     <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
                         ✅ Enviar Pedido Pago para o WhatsApp
-                        ✅ Abrir WhatsApp Manualmente (Caso não tenha aberto)
                     </button>
                 `;
-
-                // 4. MÁGICA DO DISPARO AUTOMÁTICO: Envia o cliente direto para o WhatsApp
-                enviarPedidoWhatsApp();
             }
-
-
         } catch (e) {
             console.error("Erro ao checar status do pagamento.");
         }
@@ -1422,12 +1391,12 @@ function verificarStatusPagamento(idTransacao) {
 function enviarPedidoWhatsApp() {
     const nome = document.getElementById('nomeCliente').value;
     if(!nome) return alert("Por favor, digite seu nome.");
-
+    
     const metodo = document.getElementById('metodoRetirada').value;
-
+    
     let total = 0;
     let itensTexto = "";
-
+    
     // Pega os itens reais que estão no carrinho antes de apagar
     cart.forEach(item => {
         itensTexto += `- ${item.qty}x ${item.name} (R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')})%0A`;
@@ -1438,17 +1407,13 @@ function enviarPedidoWhatsApp() {
 
     // Monta o texto automático profissional focado no pagamento Pix aprovado
     let mensagem = `✅ *NOVO PEDIDO PAGO VIA PIX* ✅%0A`;
-    let mensagem = `✅ *NOVO PEDIDO* ✅%0A`;
     mensagem += `🛎️ _Esse pedido já foi aprovado pelo sistema e está pronto para produção._%0A%0A`;
     mensagem += `*Cliente:* ${nome}%0A`;
     mensagem += `*Localização:* ${userLocation}%0A`;
     mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
-    mensagem += `🛍️%0A`;
     mensagem += `*Itens do Pedido:*%0A${itensTexto}%0A`;
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
     mensagem += `Status: *PAGAMENTO CONFIRMADO PELO BANCO* 🟢`;
-    mensagem += `🔴*ATENÇÃO*🔴%0A`;
-    mensagem += `Nos enviar o comprovante para validar sua compra e darmos continuidade com o seu atendimento`;
 
     // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
     cart = [];
