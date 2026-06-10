@@ -581,7 +581,8 @@
             box-shadow: 0 6px 15px rgba(199, 125, 142, 0.1);
         }
     
-        /* --- CORREÇÃO DO RODAPÉ FIXO CENTRALIZADO --- */
+        
+                /* --- CORREÇÃO DO RODAPÉ FIXO CENTRALIZADO --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -597,8 +598,9 @@
             display: flex;
             justify-content: space-around;
             padding: 12px 0 16px;
-            z-index: 2500; /* Mantido menor do que as janelas de modais do carrinho */
+            z-index: 6000; /* <--- ALTERADO DE 2500 PARA 6000 */
         }
+
 
         .nav-item {
             display: flex;
