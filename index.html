@@ -1370,18 +1370,17 @@ function verificarStatusPagamento(idTransacao) {
             const resposta = await fetch(`${URL_DO_APPS_SCRIPT}?id=${idTransacao}`);
             const statusData = await resposta.json(); 
 
-                        if (statusData.pago === true) {
+            if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de perguntar ao servidor
                 
                 // 1. Esconde a área do código Pix (Textarea e Botão Copiar)
                 document.getElementById('inputPixCopiaCola').style.display = 'none';
-                // Como o botão de copiar não tem ID próprio, selecionamos ele pelo seletor do clique
                 const btnCopiar = document.querySelector("#blocoPix button[onclick='copiarPix()']");
                 if(btnCopiar) btnCopiar.style.display = 'none';
                 
-                // 2. Transforma o texto antigo de carregamento no Círculo Pulsante com o 👍
+                // 2. Transforma o texto antigo no Círculo Pulsante com o 👍 e a frase
                 const statusPagamento = document.getElementById('statusPagamento');
-                statusPagamento.style.animation = "none"; // Remove o piscar antigo
+                statusPagamento.style.animation = "none"; 
                 statusPagamento.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0;">
                         <div style="width: 80px; height: 80px; background-color: #2ec4b6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 0 20px rgba(46, 196, 182, 0.4); animation: pulsarIcone 1.5s infinite ease-in-out;">
@@ -1393,14 +1392,18 @@ function verificarStatusPagamento(idTransacao) {
                     </div>
                 `;
                 
-                // 3. Cria o botão do WhatsApp do zero de forma totalmente segura
+                // 3. Deixa o botão criado no fundo por segurança (caso o bloqueador de pop-up do celular barre o redirecionamento automático)
                 const container = document.getElementById('containerBotaoWhatsapp');
                 container.innerHTML = `
                     <button class="btn-add" onclick="enviarPedidoWhatsApp()" style="background:#25D366; color:white; margin-top: 25px; display: block; width: 100%; font-weight: bold;">
-                        ✅ Enviar Pedido Pago para o WhatsApp
+                        ✅ Abrir WhatsApp Manualmente (Caso não tenha aberto)
                     </button>
                 `;
+
+                // 4. MÁGICA DO DISPARO AUTOMÁTICO: Envia o cliente direto para o WhatsApp
+                enviarPedidoWhatsApp();
             }
+
 
         } catch (e) {
             console.error("Erro ao checar status do pagamento.");
@@ -1430,14 +1433,16 @@ function enviarPedidoWhatsApp() {
     let totalChave = total.toFixed(2); 
 
     // Monta o texto automático profissional focado no pagamento Pix aprovado
-    let mensagem = `✅ *NOVO PEDIDO PAGO VIA PIX* ✅%0A`;
+    let mensagem = `✅ *NOVO PEDIDO* ✅%0A`;
     mensagem += `🛎️ _Esse pedido já foi aprovado pelo sistema e está pronto para produção._%0A%0A`;
     mensagem += `*Cliente:* ${nome}%0A`;
     mensagem += `*Localização:* ${userLocation}%0A`;
     mensagem += `*Forma de Entrega/Retirada:* ${metodo}%0A%0A`;
+    mensagem += `🛍️`;
     mensagem += `*Itens do Pedido:*%0A${itensTexto}%0A`;
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
-    mensagem += `Status: *PAGAMENTO CONFIRMADO PELO BANCO* 🟢`;
+    mensagem += `🔴*ATENÇÃO*🔴`;
+    mensagem += `Nos enviar o comprovante para validar sua compra e darmos continuidade com o seu atendimento`;
 
     // Agora sim! Limpa o carrinho e fecha as telas do site de forma limpa
     cart = [];
