@@ -1319,35 +1319,43 @@ async function iniciarFluxoPagamento() {
     const nome = document.getElementById('nomeCliente').value;
     if(!nome) return alert("Por favor, digite seu nome.");
 
-    // Calcula o total do carrinho
     let total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
     
     document.getElementById('btnGerarPix').innerText = "Gerando Pix...";
 
     try {
-        // 1. CHAMA O SEU BACKEND PARA CRIAR O PIX DINÂMICO
-        const resposta = await fetch(URL_DO_APPS_SCRIPT, 
-        {
+        // Correção no fetch: adicionado o modo para evitar erros de CORS no redirecionamento do Google
+        const resposta = await fetch(URL_DO_APPS_SCRIPT, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'cors', 
+            headers: { 'Content-Type': 'text/plain' }, // Enviar como text/plain evita o pré-envio 'OPTIONS' que o Google rejeita
             body: JSON.stringify({ valor: total, cliente: nome })
         });
         
         const dadosPix = await resposta.json(); 
 
-        // 2. MOSTRA O CÓDIGO NA TELA
+        if (dadosPix.erro) {
+            console.error("Erro retornado pelo script:", dadosPix.erro);
+            alert("Houve um problema ao gerar o Pix. Verifique os dados.");
+            document.getElementById('btnGerarPix').innerText = "Pagar com Pix";
+            return;
+        }
+
+        // MOSTRA O CÓDIGO NA TELA
         document.getElementById('inputPixCopiaCola').value = dadosPix.copiaCola;
         document.getElementById('btnGerarPix').style.display = 'none';
         document.getElementById('blocoPix').style.display = 'block';
 
-        // 3. RECONHECE O PAGAMENTO AUTOMATICAMENTE
+        // RECONHECE O PAGAMENTO AUTOMATICAMENTE
         verificarStatusPagamento(dadosPix.idTransacao);
 
     } catch (error) {
-        alert("Erro ao gerar pagamento Pix. Tente novamente.");
+        console.error("Erro na requisição:", error);
+        alert("Erro de conexão ao gerar pagamento Pix. Tente novamente.");
         document.getElementById('btnGerarPix').innerText = "Pagar com Pix";
     }
 }
+
 
 function verificarStatusPagamento(idTransacao) {
     // Pergunta ao seu servidor a cada 5 segundos se o banco confirmou o Pix
