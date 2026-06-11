@@ -351,23 +351,23 @@
             transform: scale(1);
         }
 
-        /* --- MODAL DO CARRINHO ESTILO VIDRO --- */
-        .modal-cart {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 450px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 5000; /* <--- MUDE DE 7000 PARA 5000 */
-    display: none;
-    flex-direction: column;
-    padding: 20px 20px 30px;
-}
+                .modal-cart {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 5000;
+            display: none;
+            flex-direction: column;
+            padding: 20px 20px 90px; /* <--- ADICIONADO 90px NO FINAL */
+        }
+
 
 
         .modal-header {
@@ -503,25 +503,25 @@
             background-image: radial-gradient(circle, var(--accent), transparent);
         }
 
-        /* MODAL FINALIZAR VIDRO */
-        #finalizarModal {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 450px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 5000; /* <--- MUDE DE 8000 PARA 5000 */
-    display: none;
-    flex-direction: column;
-    padding: 30px 20px;
-    text-align: center;
-    overflow-y: auto; 
-}
+                #finalizarModal {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 5000;
+            display: none;
+            flex-direction: column;
+            padding: 30px 20px 90px; /* <--- ADICIONADO 90px NO FINAL */
+            text-align: center;
+            overflow-y: auto; 
+        }
+
 
 
         .input-cliente {
@@ -584,11 +584,14 @@
         }
     
         
-                /* --- CORREÇÃO DO RODAPÉ FIXO CENTRALIZADO --- */
-                .bottom-nav {
-            position: sticky;
+                     /* --- CORREÇÃO DO RODAPÉ FIXO CENTRALIZADO --- */
+        .bottom-nav {
+            position: fixed;
             bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
+            max-width: 450px; 
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -597,8 +600,9 @@
             display: flex;
             justify-content: space-around;
             padding: 12px 0 16px;
-            z-index: 6000;
+            z-index: 9999; /* <--- MUDADO PARA 9999 PARA FICAR SEMPRE POR CIMA */
         }
+   
 
 
 
