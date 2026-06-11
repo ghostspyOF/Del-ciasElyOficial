@@ -707,6 +707,22 @@
 .btn-whatsapp-custom:active {
     transform: scale(0.98);
 }
+        
+/* --- ANIMAÇÃO DOS PONTOS COLORIDOS --- */
+.ponto-cor {
+    display: inline-block;
+    animation: mudaCorPonto 1.2s infinite both;
+}
+
+.ponto-1 { animation-delay: 0s; }
+.ponto-2 { animation-delay: 0.2s; }
+.ponto-3 { animation-delay: 0.4s; }
+
+@keyframes mudaCorPonto {
+    0%, 100% { color: #ffeb3b; transform: scale(1); } /* Amarelo */
+    33% { color: #2a9d8f; transform: scale(1.2); }    /* Verde */
+    66% { color: #4a90e2; transform: scale(1); }      /* Azul */
+}
 
     </style>
 </head>
@@ -1303,12 +1319,21 @@ if(buttonBadge) {
         }
 
         function fecharFinalizar() { 
-            document.getElementById('finalizarModal').style.display = 'none'; 
-            // Só libera a rolagem se o carrinho também estiver fechado
-            if(document.getElementById('cartModal').style.display !== 'flex') {
-                document.body.classList.remove('modal-open');
-            }
-        }
+    document.getElementById('finalizarModal').style.display = 'none'; 
+    // Só libera a rolagem se o carrinho também estiver fechado
+    if(document.getElementById('cartModal').style.display !== 'flex') {
+        document.body.classList.remove('modal-open');
+    }
+    
+    // Se o pagamento já tinha sido aprovado e ele apenas fechou a tela, reseta o layout para a próxima vez
+    if (document.getElementById('containerAlertaSucesso').style.display === 'block') {
+        document.getElementById('containerAlertaSucesso').style.display = 'none';
+        document.getElementById('btnGerarPix').style.display = 'block';
+        document.getElementById('btnGerarPix').innerText = "Pagar com Pix";
+        document.getElementById('statusPagamento').innerText = "⏳ Aguardando pagamento...";
+    }
+}
+
 
         function pegarLocalizacao() {
             const btn = document.getElementById('btnLoc');
@@ -1418,7 +1443,9 @@ async function iniciarFluxoPagamento() {
 
     let total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
     
-    document.getElementById('btnGerarPix').innerText = "Gerando Pix...";
+     
+    document.getElementById('btnGerarPix').innerHTML = `Gerando Pix <span class="ponto-cor ponto-1">.</span><span class="ponto-cor ponto-2">.</span><span class="ponto-cor ponto-3">.</span>`;
+    
 
     try {
         // Correção no fetch: adicionado o modo para evitar erros de CORS no redirecionamento do Google
@@ -1449,7 +1476,9 @@ async function iniciarFluxoPagamento() {
     } catch (error) {
         console.error("Erro na requisição:", error);
         alert("Erro de conexão ao gerar pagamento Pix. Tente novamente.");
-        document.getElementById('btnGerarPix').innerText = "Pagar com Pix";
+        
+        document.getElementById('btnGerarPix').innerHTML = "Pagar com Pix";
+        
     }
 }
 
@@ -1503,16 +1532,28 @@ function enviarPedidoWhatsApp() {
     mensagem += `*Total Pago: R$ ${totalChave.replace('.', ',')}*%0A%0A`;
     mensagem += `Status: *Pagamento Confirmado e Enviado pelo Cliente* 🟢`;
 
-    // Limpa o carrinho e fecha as telas apenas DEPOIS de gerar o texto
+    // --- ADICIONE/SUBSTITUA AS LINHAS ABAIXO PARA O RESET ---
     cart = [];
     renderCart();
+    
+    // Fecha as telas e remove o travamento de rolagem
     document.body.classList.remove('modal-open');
     document.getElementById('finalizarModal').style.display = 'none';
     document.getElementById('cartModal').style.display = 'none';
 
+    // RESET DOS ELEMENTOS DO MODAL (O QUE DEVE MEXER)
+    document.getElementById('containerAlertaSucesso').style.display = 'none'; // Esconde o alerta do professor
+    document.getElementById('blocoPix').style.display = 'none'; // Garante que o bloco Pix antigo suma
+    document.getElementById('btnGerarPix').style.display = 'block'; // Mostra o botão "Pagar com Pix" novamente
+    document.getElementById('btnGerarPix').innerText = "Pagar com Pix"; // Reseta o texto do botão
+    document.getElementById('statusPagamento').innerText = "⏳ Aguardando pagamento..."; // Reseta o texto de status do Pix
+    document.getElementById('nomeCliente').value = ""; // Limpa o campo do nome do cliente (opcional)
+    // --------------------------------------------------------
+
     // Abre o WhatsApp com o pedido pronto
     window.open(`https://wa.me/5562995679219?text=${mensagem}`, '_blank');
 }
+
 
 
     </script>
