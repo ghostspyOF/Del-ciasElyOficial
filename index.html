@@ -625,6 +625,89 @@
             fill: var(--accent-dark);
             margin-bottom: 4px;
         }
+
+        /* --- ALERTA DE PAGAMENTO CONFIRMADO --- */
+.alerta-professor {
+    background: #ffffff;
+    border: 3px solid #fbc4ab;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.alerta-professor h3 {
+    color: #4a373b;
+    font-size: 20px;
+    font-weight: 900;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.alerta-professor p {
+    color: #654f53;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Círculo Amarelo com Ícone Verde Pulsando */
+.circulo-joinha {
+    width: 80px;
+    height: 80px;
+    background-color: #ffeb3b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    animation: pulsarJoinha 1.6s infinite ease-in-out;
+}
+
+@keyframes pulsarJoinha {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Botão WhatsApp Customizado */
+.btn-whatsapp-custom {
+    background-color: #ffeb3b !important;
+    color: #2e7d32 !important;
+    font-weight: 900 !important;
+    font-size: 16px !important;
+    border: 2px solid #2e7d32 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.btn-whatsapp-custom:active {
+    transform: scale(0.98);
+}
+
     </style>
 </head>
 <body>
@@ -749,10 +832,21 @@
 
 <button class="btn-add" id="btnGerarPix" onclick="iniciarFluxoPagamento()" style="background:var(--accent-dark); color:white; margin-top: 25px;">Pagar com Pix</button>
 
-        <button class="btn-add" id="btnWhatsapp" onclick="enviarPedidoWhatsApp()" style="background:var(--accent-dark); color:white; margin-top: 25px; display: none;">Finalizar Pedido via WhatsApp</button>
-            
-        </div>
+        <div id="containerAlertaSucesso" style="display: none; margin-top: 25px;">
+    <div class="alerta-professor">
+        <div class="circulo-joinha">👍</div>
+        <h3>Pagamento Confirmado!</h3>
+        <p>Muito obrigado! Seu pagamento foi verificado com sucesso pelo nosso sistema.</p>
+        
+        <button class="btn-whatsapp-custom" onclick="enviarPedidoWhatsApp()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22" height="22">
+            Finalizar Pedido via WhatsApp
+        </button>
     </div>
+    </div>
+
+</div>
+</div>
 
     <footer>
         <p style="font-size:18px;"><strong>Delicias da Ely</strong></p>
@@ -1369,18 +1463,18 @@ function verificarStatusPagamento(idTransacao) {
             if (statusData.pago === true) {
                 clearInterval(checkoutInterval); // Para de checar
                 
-                // 1. Muda o texto de status
-                document.getElementById('statusPagamento').innerText = "✅ PAGAMENTO CONFIRMADO!";
-                document.getElementById('statusPagamento').style.animation = "none";
+                // Esconde o bloco de instruções do PIX copia e cola
+                document.getElementById('blocoPix').style.display = 'none';
                 
-                // 2. MOSTRA O BOTÃO DO WHATSAPP (Deixa ele visível para o cliente clicar)
-                document.getElementById('btnWhatsapp').style.display = 'block';
+                // Exibe o novo alerta customizado com o botão estilizado dentro
+                document.getElementById('containerAlertaSucesso').style.display = 'block';
             }
         } catch (e) {
             console.error("Erro ao checar status.");
         }
     }, 5000);
 }
+
 
 
 // NOVA FUNÇÃO CORRIGIDA: Envia para o WhatsApp avisando que o PIX já foi pago e aprovado!
